@@ -12,7 +12,6 @@ except Exception:
 
 from datetime import datetime
 
- 
 
 conn_str = (
 
@@ -30,7 +29,6 @@ conn_str = (
 
 )
 
- 
 
 conn = None
 
@@ -62,11 +60,6 @@ else:
 
         print(f"Sem conexão com banco. Interface iniciará em modo offline. Erro: {e}")
 
- 
-
- 
-
- 
 
 min_esticagem = 0
 
@@ -76,7 +69,6 @@ min_pos_esticagem = 0
 
 max_pos_esticagem = 0
 
- 
 
 def carregar_parametros():
 
@@ -98,7 +90,6 @@ def carregar_parametros():
 
             min_esticagem, max_esticagem = 0, 0
 
- 
 
         cursor.execute("SELECT TOP 1 minimo, maximo FROM parametro_pos_esticagem ORDER BY id DESC")
 
@@ -112,7 +103,6 @@ def carregar_parametros():
 
             min_pos_esticagem, max_pos_esticagem = 0, 0
 
- 
 
         cursor.close()
 
@@ -124,9 +114,6 @@ def carregar_parametros():
 
         min_pos_esticagem, max_pos_esticagem = 0, 0
 
- 
-
- 
 
 def validar_entry(event):
 
@@ -134,7 +121,6 @@ def validar_entry(event):
 
     valor = widget.get().replace(',', '.').strip()
 
- 
 
     if valor == "":
 
@@ -144,7 +130,6 @@ def validar_entry(event):
 
         return
 
- 
 
     try:
 
@@ -162,13 +147,11 @@ def validar_entry(event):
 
         valor_formatado = s
 
- 
 
         widget.delete(0, tk.END)
 
         widget.insert(0, valor_formatado)
 
- 
 
     except ValueError:
 
@@ -180,7 +163,6 @@ def validar_entry(event):
 
         return
 
- 
 
     # --- Esticagem ---
 
@@ -192,7 +174,6 @@ def validar_entry(event):
 
         status_ng = False
 
- 
 
         for entry_x, entry_y in entries_tensao:
 
@@ -222,7 +203,6 @@ def validar_entry(event):
 
                     entry.insert(0, s)
 
- 
 
                     if num_val < float(min_esticagem) or num_val > float(max_esticagem):
 
@@ -248,7 +228,6 @@ def validar_entry(event):
 
                     entry.configure(bg="red")
 
- 
 
         entry_status.config(state="normal")
 
@@ -256,7 +235,6 @@ def validar_entry(event):
 
         entry_status.insert(0, status)
 
- 
 
         if status == "NG":
 
@@ -270,7 +248,6 @@ def validar_entry(event):
 
             entry_status.config(state="normal", bg="white", fg="black")
 
- 
 
     # --- Pós-Esticagem ---
 
@@ -282,7 +259,6 @@ def validar_entry(event):
 
         status_ng = False
 
- 
 
         for entry_x, entry_y in entries_tensao_3d:
 
@@ -312,7 +288,6 @@ def validar_entry(event):
 
                     entry.insert(0, s)
 
- 
 
                     if num_val < float(min_pos_esticagem) or num_val > float(max_pos_esticagem):
 
@@ -338,7 +313,6 @@ def validar_entry(event):
 
                     entry.configure(bg="red")
 
- 
 
         entry_status_pos.config(state="normal")
 
@@ -346,7 +320,6 @@ def validar_entry(event):
 
         entry_status_pos.insert(0, status_pos)
 
- 
 
         if status_pos == "NG":
 
@@ -360,17 +333,6 @@ def validar_entry(event):
 
             entry_status_pos.config(state="normal", bg="white", fg="black")
 
- 
-
- 
-
- 
-
- 
-
- 
-
-   
 
 def preencher_parametros_esticagem():
 
@@ -392,7 +354,6 @@ def preencher_parametros_esticagem():
 
         cursor.close()
 
- 
 
         if row:
 
@@ -402,7 +363,6 @@ def preencher_parametros_esticagem():
 
             variacao = round((maximo - minimo) / 2, 3)
 
- 
 
             entry_tensao.configure(state="normal")
 
@@ -412,7 +372,6 @@ def preencher_parametros_esticagem():
 
             entry_tensao.configure(state="readonly")
 
- 
 
             entry_tensao_plusminus.configure(state="normal")
 
@@ -422,7 +381,6 @@ def preencher_parametros_esticagem():
 
             entry_tensao_plusminus.configure(state="readonly")
 
- 
 
             entry_de.configure(state="normal")
 
@@ -432,7 +390,6 @@ def preencher_parametros_esticagem():
 
             entry_de.configure(state="readonly")
 
- 
 
             entry_ate.configure(state="normal")
 
@@ -442,7 +399,6 @@ def preencher_parametros_esticagem():
 
             entry_ate.configure(state="readonly")
 
- 
 
             # Mostra data + hora vindos do banco
 
@@ -460,7 +416,6 @@ def preencher_parametros_esticagem():
 
             entry_parametros.configure(state="readonly")
 
- 
 
         else:
 
@@ -470,9 +425,6 @@ def preencher_parametros_esticagem():
 
         messagebox.showerror("Erro", f"Erro ao buscar parâmetros: {e}")
 
- 
-
- 
 
 def preencher_parametros_pos_esticagem():
 
@@ -494,7 +446,6 @@ def preencher_parametros_pos_esticagem():
 
         cursor.close()
 
- 
 
         if row:
 
@@ -504,7 +455,6 @@ def preencher_parametros_pos_esticagem():
 
             variacao = round((maximo - minimo) / 2, 3)
 
- 
 
             entry_tensao_3d.configure(state="normal")
 
@@ -514,7 +464,6 @@ def preencher_parametros_pos_esticagem():
 
             entry_tensao_3d.configure(state="readonly")
 
- 
 
             entry_tensao_plusminus_3d.configure(state="normal")
 
@@ -524,7 +473,6 @@ def preencher_parametros_pos_esticagem():
 
             entry_tensao_plusminus_3d.configure(state="readonly")
 
- 
 
             entry_de_3d.configure(state="normal")
 
@@ -534,7 +482,6 @@ def preencher_parametros_pos_esticagem():
 
             entry_de_3d.configure(state="readonly")
 
- 
 
             entry_ate_3d.configure(state="normal")
 
@@ -544,7 +491,6 @@ def preencher_parametros_pos_esticagem():
 
             entry_ate_3d.configure(state="readonly")
 
- 
 
             entry_parametros_3d.configure(state="normal")
 
@@ -568,11 +514,6 @@ def preencher_parametros_pos_esticagem():
 
         messagebox.showerror("Erro", f"Erro ao buscar parâmetros pós-esticagem: {e}")
 
- 
-
- 
-
- 
 
 def buscar_opcoes(tabela, coluna):
 
@@ -598,7 +539,6 @@ def buscar_opcoes(tabela, coluna):
 
         return []
 
- 
 
 def buscar_funcionario_por_matricula(matricula):
 
@@ -620,9 +560,6 @@ def buscar_funcionario_por_matricula(matricula):
 
         return None
 
- 
-
- 
 
 def extrair_matricula(qr_code):
 
@@ -640,15 +577,11 @@ def extrair_matricula(qr_code):
 
     return None  # Retorna None se não encontrar ou não terminar com 010101
 
- 
-
- 
 
 def on_matricula_focusout(event):
 
     widget = event.widget
 
- 
 
     # Verifica qual campo disparou o evento
 
@@ -672,7 +605,6 @@ def on_matricula_focusout(event):
 
         return
 
- 
 
     codigo_lido = entry_codigo.get().strip()
 
@@ -688,11 +620,9 @@ def on_matricula_focusout(event):
 
         return
 
- 
 
     matricula = extrair_matricula(codigo_lido)
 
- 
 
     if not matricula:
 
@@ -712,7 +642,6 @@ def on_matricula_focusout(event):
 
         return
 
- 
 
     # Limpa e substitui o campo com a matrícula limpa
 
@@ -720,7 +649,6 @@ def on_matricula_focusout(event):
 
     entry_codigo.insert(0, matricula)
 
- 
 
     nome = buscar_funcionario_por_matricula(matricula)
 
@@ -734,9 +662,8 @@ def on_matricula_focusout(event):
 
         entry_nome.configure(state="readonly")
 
- 
 
-        hoje = datetime.now().strftime("%d/%m/%Y %H:%M:%S") 
+        hoje = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         entry_data_target.configure(state="normal")
 
@@ -762,23 +689,14 @@ def on_matricula_focusout(event):
 
         entry_codigo.focus_set()
 
- 
-
- 
-
- 
-
- 
 
 root = tk.Tk()
 
- 
 
 frame_botoes = tk.Frame(root)
 
 frame_botoes.pack(side="top", anchor="ne", padx=5, pady=5)
 
- 
 
 # Botão Minimizar
 
@@ -786,7 +704,6 @@ btn_minimizar = tk.Button(frame_botoes, text="_", width=3, command=root.iconify)
 
 btn_minimizar.pack(side="left")
 
- 
 
 # Botão Fechar
 
@@ -814,35 +731,29 @@ if not db_online:
 
     root.after(200, _avisar_modo_offline)
 
- 
 
 main_frame = tk.Frame(root)
 
 main_frame.pack(fill="both", expand=True)
 
- 
 
 canvas = tk.Canvas(main_frame)
 
 canvas.pack(side="left", fill="both", expand=True)
 
- 
 
 scrollbar = tk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
 
 scrollbar.pack(side="right", fill="y")
 
- 
 
 canvas.configure(yscrollcommand=scrollbar.set)
 
- 
 
 form_frame = tk.Frame(canvas)
 
 window = canvas.create_window((0, 0), window=form_frame, anchor="nw")
 
- 
 
 def on_frame_configure(event=None):
 
@@ -856,29 +767,24 @@ def on_frame_configure(event=None):
 
     canvas.coords(window, x, 0)
 
- 
 
 form_frame.bind("<Configure>", on_frame_configure)
 
 canvas.bind("<Configure>", on_frame_configure)
 
- 
 
 def _on_mousewheel(event):
 
     canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
- 
 
 canvas.bind_all("<MouseWheel>", _on_mousewheel)
 
- 
 
 content_frame = tk.Frame(form_frame, width=900)
 
 content_frame.pack(padx=20, pady=20)
 
- 
 
 label_width = 12
 
@@ -890,7 +796,6 @@ font_subtitle = ("Arial", 10)
 
 font_frame_title = ("Arial", 11, "underline")
 
- 
 
 def add_label_entry(parent, text, row, col_label, col_entry, width=entry_width, readonly=False):
 
@@ -908,19 +813,16 @@ def add_label_entry(parent, text, row, col_label, col_entry, width=entry_width, 
 
     return label, entry
 
- 
 
 titulo = tk.Label(content_frame, text="1. Esticagem", font=font_title)
 
 titulo.grid(row=0, column=0, columnspan=7, pady=(0, 25), sticky="nsew")
 
- 
 
 _, entry_id_quadro = add_label_entry(content_frame, "ID Quadro (QR):", 1, 0, 1)
 
 entry_id_quadro.configure(justify="left")
 
- 
 
 # --- FUNÇÕES AUXILIARES PARA ORIGEM ---
 
@@ -930,7 +832,6 @@ def mostrar_origem_como_entry(origem_val):
 
     global entry_origem_substituto
 
- 
 
     # Se já existir um entry substituto, destrói antes
 
@@ -938,7 +839,6 @@ def mostrar_origem_como_entry(origem_val):
 
         entry_origem_substituto.destroy()
 
- 
 
     entry_origem_substituto = tk.Entry(combo_origem.master, font=combo_origem["font"])
 
@@ -950,9 +850,6 @@ def mostrar_origem_como_entry(origem_val):
 
     combo_origem.grid_forget()
 
- 
-
- 
 
 def mostrar_origem_como_combobox():
 
@@ -966,9 +863,6 @@ def mostrar_origem_como_combobox():
 
     combo_origem.grid(**combo_origem.grid_position)
 
- 
-
- 
 
 # --- FUNÇÃO PRINCIPAL ---
 
@@ -976,7 +870,6 @@ def validar_e_carregar_quadro(event=None):
 
     valor = entry_id_quadro.get().strip()
 
- 
 
     # --- Validação do QR code ---
 
@@ -990,13 +883,11 @@ def validar_e_carregar_quadro(event=None):
 
         return False
 
- 
 
     try:
 
         cursor = conn.cursor()
 
- 
 
         # --- Último NG da pós-esticagem ---
 
@@ -1016,7 +907,6 @@ def validar_e_carregar_quadro(event=None):
 
         data_pos_ng = row_ng[0] if row_ng else None
 
- 
 
         # --- Dados da esticagem ---
 
@@ -1052,7 +942,6 @@ def validar_e_carregar_quadro(event=None):
 
         row = cursor.fetchone()
 
- 
 
         # --- Limpar campos ---
 
@@ -1062,7 +951,6 @@ def validar_e_carregar_quadro(event=None):
 
         entry_id_quadro.insert(0, valor)
 
- 
 
         combo_origem.set("")
 
@@ -1074,7 +962,6 @@ def validar_e_carregar_quadro(event=None):
 
         radio_bias.config(state="normal")
 
- 
 
         for entry_x, entry_y in entries_tensao:
 
@@ -1086,7 +973,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_y.delete(0, tk.END)
 
- 
 
         entry_func_codigo.config(state="normal")
 
@@ -1098,13 +984,11 @@ def validar_e_carregar_quadro(event=None):
 
         entry_func_nome.config(state="readonly")
 
- 
 
         entry_bias.config(state="disabled")
 
         entry_bias.delete(0, tk.END)
 
- 
 
         for entry_widget in [entry_mesh_leitura, entry_mesh_info, entry_cola_1, entry_cola_2]:
 
@@ -1112,7 +996,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_widget.delete(0, tk.END)
 
- 
 
         entry_motivo.config(state="normal")
 
@@ -1126,7 +1009,6 @@ def validar_e_carregar_quadro(event=None):
 
         entry_data.delete(0, tk.END)
 
- 
 
         # --- Sempre carregar a data da esticagem (readonly) ---
 
@@ -1144,7 +1026,6 @@ def validar_e_carregar_quadro(event=None):
 
         entry_data.config(state="readonly")
 
- 
 
         # --- Preencher radio button e Bias ---
 
@@ -1188,7 +1069,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_bias.delete(0, tk.END)
 
- 
 
         # --- Preencher campos apenas se esticagem não for NG ou foi refeita após NG ---
 
@@ -1198,7 +1078,6 @@ def validar_e_carregar_quadro(event=None):
 
             status_val = row[22]
 
- 
 
             if status_val != "NG" and (data_pos_ng is None or data_esticagem > data_pos_ng):
 
@@ -1210,9 +1089,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_bias.config(state="disabled")
 
-               
-
- 
 
                 if origem_val:
 
@@ -1222,7 +1098,6 @@ def validar_e_carregar_quadro(event=None):
 
                     mostrar_origem_como_combobox()
 
- 
 
                 medicoes = row[4:14]
 
@@ -1240,7 +1115,6 @@ def validar_e_carregar_quadro(event=None):
 
                     entry_y.config(state="readonly")
 
- 
 
                 reg_func_val = row[15]
 
@@ -1258,7 +1132,6 @@ def validar_e_carregar_quadro(event=None):
 
                     entry_func_codigo.config(state="disabled")
 
- 
 
                 if row[16] is not None:
 
@@ -1272,7 +1145,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_mesh_info.config(state="readonly")
 
- 
 
                 entry_cola_1.insert(0, str(row[18] or ""))
 
@@ -1282,7 +1154,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_cola_2.config(state="readonly")
 
- 
 
                 if row[21]:
 
@@ -1290,7 +1161,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_motivo.config(state="disabled")
 
- 
 
                 # --- Inserir status e ajustar cor e letra ---
 
@@ -1316,7 +1186,6 @@ def validar_e_carregar_quadro(event=None):
 
             mostrar_origem_como_combobox()
 
- 
 
         # --- Pós-esticagem ---
 
@@ -1348,7 +1217,6 @@ def validar_e_carregar_quadro(event=None):
 
         row_pos = cursor.fetchone()
 
- 
 
         if not row_pos or row_pos[12] == "NG":
 
@@ -1368,13 +1236,11 @@ def validar_e_carregar_quadro(event=None):
 
             )
 
- 
 
             for entry in espessura_3d_entries:
 
                 entry.config(state="readonly")
 
- 
 
             entry_func_codigo_pos.config(state="normal")
 
@@ -1396,7 +1262,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_func_codigo_pos.config(state="disabled")
 
- 
 
             for i, (entry_x, entry_y) in enumerate(entries_tensao_3d):
 
@@ -1424,7 +1289,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_y.config(state="readonly")
 
- 
 
             entry_media_3d.config(state="normal")
 
@@ -1436,7 +1300,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_media_3d.config(state="readonly")
 
- 
 
             entry_motivo_pos.config(state="normal")
 
@@ -1448,7 +1311,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_motivo_pos.config(state="disabled")
 
- 
 
             # --- Status pós-esticagem com cor e letra ---
 
@@ -1466,7 +1328,6 @@ def validar_e_carregar_quadro(event=None):
 
                 entry_status_pos.config(readonlybackground="white", foreground="black")
 
- 
 
             entry_data_pos.config(state="normal")
 
@@ -1482,7 +1343,6 @@ def validar_e_carregar_quadro(event=None):
 
             entry_data_pos.config(state="readonly")
 
- 
 
     except Exception as e:
 
@@ -1492,29 +1352,9 @@ def validar_e_carregar_quadro(event=None):
 
         return False
 
- 
 
     return True
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 def carregar_emulsao_por_quadro(id_quadro):
 
@@ -1538,11 +1378,9 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         return
 
- 
 
     id_quadro = id_quadro.strip()
 
- 
 
     try:
 
@@ -1566,7 +1404,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         cursor.close()
 
- 
 
         status_rev = reutilizar_rev = data_rev = None
 
@@ -1574,7 +1411,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
             status_rev, reutilizar_rev, data_rev = row_rev
 
- 
 
         # --- 2. Buscar último registro de emulsão ---
 
@@ -1604,7 +1440,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_emulsao_qr.focus_set()
 
- 
 
         if not row:
 
@@ -1614,13 +1449,11 @@ def carregar_emulsao_por_quadro(id_quadro):
 
             return
 
- 
 
         qr_emulsao_val, emulsao_val, polimero_val, \
         espessura_pos_emulsao_val, espessura_emulsao_val, \
         data_val, reg_func_val, status_val, observacao_val = row
 
- 
 
         # --- 3. Regras de bloqueio (NG + Sim em revelacao_final) ---
 
@@ -1640,7 +1473,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
                 print("DEBUG: Emulsão refeita após revelação final NG+Sim → carregar normalmente.")
 
- 
 
         # --- 4. Se último registro de emulsão é NG, não carregar ---
 
@@ -1650,7 +1482,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
             return
 
- 
 
         # --- 5. Preencher campos ---
 
@@ -1662,7 +1493,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_emulsao_qr.config(state="readonly")
 
- 
 
         entry_emulsao_qr_readonly.config(state="normal")
 
@@ -1672,11 +1502,9 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_emulsao_qr_readonly.config(state="readonly")
 
- 
 
         var_msfilm.set(bool(polimero_val))
 
- 
 
         entry_espessura_2.config(state="normal")
 
@@ -1686,7 +1514,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_espessura_2.config(state="readonly")
 
- 
 
         entry_espessura_3.config(state="normal")
 
@@ -1696,7 +1523,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_espessura_3.config(state="readonly")
 
- 
 
         # Código do funcionário
 
@@ -1710,7 +1536,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_func_codigo_emulsao.config(state="disabled")
 
- 
 
         # Nome do funcionário
 
@@ -1726,7 +1551,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_func_nome_emulsao.config(state="readonly")
 
- 
 
         entry_status_emulsao.config(state="normal")
 
@@ -1736,7 +1560,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_status_emulsao.config(state="readonly")
 
- 
 
         entry_motivo_emulsao.config(state="normal")
 
@@ -1746,7 +1569,6 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_motivo_emulsao.config(state="disabled")
 
- 
 
         entry_data_emulsao.config(state="normal")
 
@@ -1762,51 +1584,14 @@ def carregar_emulsao_por_quadro(id_quadro):
 
         entry_data_emulsao.config(state="readonly")
 
- 
 
         print("DEBUG: Dados da emulsão carregados com sucesso.")
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Falha ao carregar dados do quadro ou da emulsão:\n{e}")
 
- 
-
- 
-
- 
-
- 
-
- 
-
-       
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 label_origem = tk.Label(content_frame, text="Origem:", width=label_width, anchor="e", font=font_subtitle)
 
@@ -1818,9 +1603,6 @@ combo_origem = ttk.Combobox(content_frame, values=origens, width=entry_width-4, 
 
 combo_origem.grid(row=1, column=3, sticky="w", padx=5, pady=5)
 
- 
-
- 
 
 label_mesh = tk.Label(content_frame, text="Mesh (QR):", width=label_width, anchor="e", font=font_subtitle)
 
@@ -1838,7 +1620,6 @@ entry_mesh_info = tk.Entry(mesh_frame, width=25, font=font_subtitle, state="read
 
 entry_mesh_info.grid(row=0, column=1)
 
- 
 
 def verificar_mesh_info():
 
@@ -1854,7 +1635,6 @@ def verificar_mesh_info():
 
     valor = entry_mesh_info.get().strip()
 
-   
 
     if "115" in valor:  # detecta "115" em qualquer posição
 
@@ -1870,9 +1650,6 @@ def verificar_mesh_info():
 
         radio_normal.config(state="normal")
 
- 
-
- 
 
 # --- Lista de Mesh permitidos para Importado ---
 
@@ -1886,7 +1663,6 @@ mesh_importado = [
 
 ]
 
- 
 
 # --- Função para buscar Mesh ---
 
@@ -1896,7 +1672,6 @@ def buscar_mesh_por_qr(qr):
 
         return ""
 
- 
 
     referencia = qr[:6]
 
@@ -1908,13 +1683,11 @@ def buscar_mesh_por_qr(qr):
 
         return ""
 
- 
 
     if not qr[-3:] == "MPI":
 
         return ""
 
- 
 
     try:
 
@@ -1932,7 +1705,6 @@ def buscar_mesh_por_qr(qr):
 
         cursor.close()
 
- 
 
         if row and row[1] == "Mesh":
 
@@ -1948,7 +1720,6 @@ def buscar_mesh_por_qr(qr):
 
         return ""
 
- 
 
 # --- Validação do Mesh dependendo da origem ---
 
@@ -1988,7 +1759,6 @@ def validar_mesh_importado(mesh_valor):
 
     return True
 
- 
 
 # --- Função chamada ao sair do Entry ---
 
@@ -2000,7 +1770,6 @@ def on_mesh_focusout(event):
 
     entry_mesh_info.delete(0, tk.END)
 
- 
 
     if qr == "":
 
@@ -2008,7 +1777,6 @@ def on_mesh_focusout(event):
 
         return
 
- 
 
     mesh_valor = buscar_mesh_por_qr(qr)
 
@@ -2016,7 +1784,6 @@ def on_mesh_focusout(event):
 
     entry_mesh_info.configure(state="readonly")
 
- 
 
     # Validação da origem
 
@@ -2024,7 +1791,6 @@ def on_mesh_focusout(event):
 
         validar_mesh_importado(mesh_valor)
 
- 
 
         # --- Nova regra: se o mesh tiver "115", só Normal ---
 
@@ -2050,15 +1816,11 @@ def on_mesh_focusout(event):
 
             radio_bias.config(state="normal")
 
- 
 
     # --- Pula automaticamente para entry_cola_1 ---
 
     entry_cola_1.focus_set()
 
- 
-
- 
 
 # --- Função chamada ao mudar a origem ---
 
@@ -2070,23 +1832,14 @@ def on_origem_selected(event):
 
         validar_mesh_importado(mesh_valor)
 
- 
 
 # Binds
 
 entry_mesh_leitura.bind("<FocusOut>", on_mesh_focusout)
 
- 
 
 combo_origem.bind("<<ComboboxSelected>>", on_origem_selected)
 
- 
-
- 
-
- 
-
- 
 
 disp_var = tk.StringVar(value="Normal")
 
@@ -2098,7 +1851,6 @@ disp_frame = tk.Frame(content_frame)
 
 disp_frame.grid(row=3, column=3, sticky="w", padx=(5,30), pady=5)
 
- 
 
 def on_disp_change():
 
@@ -2120,7 +1872,6 @@ def on_disp_change():
 
         entry_bias.configure(state="disabled")
 
- 
 
 radio_normal = tk.Radiobutton(disp_frame, text="Normal", variable=disp_var, value="Normal", command=on_disp_change, font=font_subtitle)
 
@@ -2134,21 +1885,16 @@ entry_bias = tk.Entry(disp_frame, width=18, font=font_subtitle, state="disabled"
 
 entry_bias.pack(side="left")
 
- 
-
- 
 
 frame_aplicacao_cola = tk.LabelFrame(content_frame, text="Aplicação da cola", font=font_frame_title, padx=10, pady=10)
 
 frame_aplicacao_cola.grid(row=4, column=0, columnspan=3, sticky="nsew", padx=(10,20), pady=(20,10))
 
- 
 
 frame_tensao = tk.LabelFrame(content_frame, text="Tabela de Tensão (mm) X e Y", font=font_frame_title, padx=10, pady=10)
 
 frame_tensao.grid(row=4, column=3, columnspan=4, sticky="nsew", padx=(20,10), pady=(20,10))
 
- 
 
 for col in range(4):
 
@@ -2158,7 +1904,6 @@ for col in range(3):
 
     frame_tensao.grid_columnconfigure(col, weight=1)
 
- 
 
 tk.Label(frame_aplicacao_cola, text="Tensão (mm):", font=font_subtitle).grid(row=0, column=0, sticky="e", pady=3)
 
@@ -2174,7 +1919,6 @@ entry_tensao_plusminus = tk.Entry(frame_aplicacao_cola, width=12, font=font_subt
 
 entry_tensao_plusminus.grid(row=0, column=3, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_aplicacao_cola, text="De:", font=font_subtitle).grid(row=1, column=0, sticky="e", pady=3)
 
@@ -2190,7 +1934,6 @@ entry_ate = tk.Entry(frame_aplicacao_cola, width=12, font=font_subtitle, state="
 
 entry_ate.grid(row=1, column=3, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_aplicacao_cola, text="Parâmetros de:", font=font_subtitle).grid(row=2, column=0, sticky="e", pady=3)
 
@@ -2198,7 +1941,6 @@ entry_parametros = tk.Entry(frame_aplicacao_cola, width=25, font=font_subtitle, 
 
 entry_parametros.grid(row=2, column=1, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_aplicacao_cola, text="Cola (QR):", font=font_subtitle).grid(row=3, column=0, sticky="e", pady=3)
 
@@ -2210,7 +1952,6 @@ entry_cola_2 = tk.Entry(frame_aplicacao_cola, width=30, font=font_subtitle, stat
 
 entry_cola_2.grid(row=3, column=2, columnspan=2, pady=3, sticky="w")
 
- 
 
 def buscar_desc_proc_por_qr(qr):
 
@@ -2226,9 +1967,6 @@ def buscar_desc_proc_por_qr(qr):
 
         return None
 
- 
-
-   
 
     referencia = qr[:6]
 
@@ -2240,7 +1978,6 @@ def buscar_desc_proc_por_qr(qr):
 
         return None
 
- 
 
     # Verificar se os últimos 3 caracteres são 'MPI'
 
@@ -2248,7 +1985,6 @@ def buscar_desc_proc_por_qr(qr):
 
         return None
 
- 
 
     # Buscar no banco
 
@@ -2268,7 +2004,6 @@ def buscar_desc_proc_por_qr(qr):
 
         cursor.close()
 
- 
 
         if row and row[1] and row[1].strip().lower() == "cola":
 
@@ -2284,7 +2019,6 @@ def buscar_desc_proc_por_qr(qr):
 
         return None
 
- 
 
 def on_cola_focusout(event):
 
@@ -2294,7 +2028,6 @@ def on_cola_focusout(event):
 
     entry_cola_2.delete(0, tk.END)
 
- 
 
     if qr == "":
 
@@ -2302,7 +2035,6 @@ def on_cola_focusout(event):
 
         return
 
- 
 
     valor = buscar_desc_proc_por_qr(qr)
 
@@ -2314,19 +2046,12 @@ def on_cola_focusout(event):
 
         entry_cola_2.insert(0, "Não encontrado")
 
- 
 
     entry_cola_2.configure(state="readonly")
 
- 
 
 entry_cola_1.bind("<FocusOut>", on_cola_focusout)
 
- 
-
- 
-
- 
 
 tk.Label(frame_tensao, text="Tensão (mm):", font=font_subtitle).grid(row=0, column=0, padx=5)
 
@@ -2334,7 +2059,6 @@ tk.Label(frame_tensao, text="X", font=font_subtitle).grid(row=0, column=1, padx=
 
 tk.Label(frame_tensao, text="Y", font=font_subtitle).grid(row=0, column=2, padx=10)
 
- 
 
 entries_tensao = []
 
@@ -2356,21 +2080,18 @@ for entry_x, entry_y in entries_tensao:
 
     entry_x.bind("<FocusOut>", validar_entry)
 
-    entry_y.bind("<FocusOut>", validar_entry)   
+    entry_y.bind("<FocusOut>", validar_entry)
 
- 
 
 func_data_frame = tk.Frame(content_frame)
 
 func_data_frame.grid(row=5, column=0, columnspan=7, pady=(20,15), sticky="ew")
 
- 
 
 for col in range(5):
 
     func_data_frame.grid_columnconfigure(col, weight=1)
 
- 
 
 label_func_codigo = tk.Label(func_data_frame, text="Funcionário:", width=label_width, anchor="e", font=font_subtitle)
 
@@ -2382,13 +2103,11 @@ entry_func_codigo.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
 entry_func_codigo.bind("<FocusOut>", on_matricula_focusout)
 
- 
 
 entry_func_nome = tk.Entry(func_data_frame, width=35, font=font_subtitle, state="readonly")
 
 entry_func_nome.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 label_data = tk.Label(func_data_frame, text="Data:", width=label_width, anchor="e", font=font_subtitle)
 
@@ -2398,23 +2117,16 @@ entry_data = tk.Entry(func_data_frame, width=25, font=font_subtitle,state="reado
 
 entry_data.grid(row=0, column=4, padx=5, pady=5, sticky="w")
 
- 
 
 frame_apontamento = tk.LabelFrame(content_frame, text="Apontamento - Esticagem", font=font_frame_title, padx=10, pady=10)
 
 frame_apontamento.grid(row=6, column=0, columnspan=7, sticky="ew", padx=10, pady=(0,20))
 
- 
-
- 
-
- 
 
 for col in range(7):
 
     frame_apontamento.grid_columnconfigure(col, weight=1)
 
- 
 
 tk.Label(frame_apontamento, text="Status:", font=font_subtitle, width=label_width, anchor="e").grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
@@ -2422,7 +2134,6 @@ entry_status = tk.Entry(frame_apontamento, width=15, font=font_subtitle, justify
 
 entry_status.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 tk.Label(frame_apontamento, text="Observação:", font=font_subtitle, width=label_width, anchor="e").grid(row=1, column=0, padx=5, pady=5, sticky="ne")
 
@@ -2430,11 +2141,6 @@ entry_motivo = tk.Text(frame_apontamento, width=50, height=4, font=font_subtitle
 
 entry_motivo.grid(row=1, column=1, columnspan=5, padx=5, pady=5, sticky="w")
 
- 
-
- 
-
- 
 
 botao_salvar_esticagem = tk.Button(
 
@@ -2444,13 +2150,11 @@ botao_salvar_esticagem = tk.Button(
 
     font=font_subtitle,
 
-   
 
 )
 
 botao_salvar_esticagem.grid(row=2, column=0, columnspan=7, pady=(10,0))
 
- 
 
 # --- Função para salvar dados de esticagem ---
 
@@ -2460,7 +2164,6 @@ def salvar_dados_esticagem():
 
         cursor = conn.cursor()
 
-       
 
         # --- Extrair valores dos campos ---
 
@@ -2486,7 +2189,6 @@ def salvar_dados_esticagem():
 
         observacao = entry_motivo.get("1.0", tk.END).strip()
 
-       
 
         # --- Verificar duplicidade ---
 
@@ -2504,7 +2206,6 @@ def salvar_dados_esticagem():
 
         count_esticagem_ok = cursor.fetchone()[0]
 
- 
 
         # Verificar último registro em pos_esticagem
 
@@ -2524,7 +2225,6 @@ def salvar_dados_esticagem():
 
         status_pos = row_pos[0] if row_pos else None
 
- 
 
         # --- Decidir se pode salvar ---
 
@@ -2544,7 +2244,6 @@ def salvar_dados_esticagem():
 
                 return
 
- 
 
         if status_pos == "OK":
 
@@ -2554,7 +2253,6 @@ def salvar_dados_esticagem():
 
             return
 
-       
 
         # --- Medições X/Y ---
 
@@ -2568,7 +2266,6 @@ def salvar_dados_esticagem():
 
             medicoes.append((x_val, y_val))
 
-       
 
         # --- Validação obrigatória ---
 
@@ -2592,7 +2289,6 @@ def salvar_dados_esticagem():
 
         }
 
- 
 
         # Verificar entradas de medição
 
@@ -2604,7 +2300,6 @@ def salvar_dados_esticagem():
 
                 return
 
- 
 
         # Checar os campos obrigatórios
 
@@ -2616,7 +2311,6 @@ def salvar_dados_esticagem():
 
                 return
 
- 
 
         # Observação obrigatória somente se status for NG
 
@@ -2626,7 +2320,6 @@ def salvar_dados_esticagem():
 
             return
 
-       
 
         # --- Preparar valores para INSERT (data com GETDATE()) ---
 
@@ -2668,7 +2361,6 @@ def salvar_dados_esticagem():
 
         """
 
- 
 
         valores_insert = [
 
@@ -2690,7 +2382,6 @@ def salvar_dados_esticagem():
 
         ]
 
- 
 
         cursor.execute(sql, valores_insert)
 
@@ -2700,7 +2391,6 @@ def salvar_dados_esticagem():
 
         messagebox.showinfo("Sucesso", "Dados salvos com sucesso!")
 
- 
 
         # --- Resetar todos os campos e cores ---
 
@@ -2710,13 +2400,11 @@ def salvar_dados_esticagem():
 
             entry_widget.delete(0, tk.END)
 
- 
 
         reset_entry(entry_id_quadro)
 
         combo_origem.set('')
 
- 
 
         # Disposição
 
@@ -2726,7 +2414,6 @@ def salvar_dados_esticagem():
 
         entry_bias.delete(0, tk.END)
 
- 
 
         reset_entry(entry_func_codigo)
 
@@ -2736,7 +2423,6 @@ def salvar_dados_esticagem():
 
         entry_func_nome.configure(state="readonly")
 
- 
 
         reset_entry(entry_mesh_leitura)
 
@@ -2746,7 +2432,6 @@ def salvar_dados_esticagem():
 
         entry_mesh_info.configure(state="readonly")
 
- 
 
         reset_entry(entry_cola_1)
 
@@ -2756,7 +2441,6 @@ def salvar_dados_esticagem():
 
         entry_cola_2.configure(state="readonly")
 
- 
 
         entry_data.configure(state="normal")
 
@@ -2764,7 +2448,6 @@ def salvar_dados_esticagem():
 
         entry_data.configure(state="readonly")
 
- 
 
         entry_status.configure(state="normal")
 
@@ -2772,11 +2455,9 @@ def salvar_dados_esticagem():
 
         entry_status.configure(foreground="black", readonlybackground="white")
 
- 
 
         entry_motivo.delete("1.0", tk.END)
 
- 
 
         for entry_x, entry_y in entries_tensao:
 
@@ -2784,25 +2465,16 @@ def salvar_dados_esticagem():
 
             reset_entry(entry_y)
 
- 
 
         # Focar novamente no ID Quadro
 
         entry_id_quadro.focus_set()
 
-       
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Falha ao salvar dados: {e}")
 
- 
-
- 
-
- 
-
- 
 
 def limpar_campo_esticagem():
 
@@ -2812,7 +2484,6 @@ def limpar_campo_esticagem():
 
     combo_origem.set('')
 
-   
 
     # Disposição
 
@@ -2822,7 +2493,6 @@ def limpar_campo_esticagem():
 
     entry_bias.delete(0, tk.END)
 
-   
 
     entry_func_codigo.delete(0, tk.END)
 
@@ -2832,7 +2502,6 @@ def limpar_campo_esticagem():
 
     entry_func_nome.configure(state="readonly")
 
-   
 
     entry_mesh_leitura.delete(0, tk.END)
 
@@ -2842,7 +2511,6 @@ def limpar_campo_esticagem():
 
     entry_mesh_info.configure(state="readonly")
 
-   
 
     entry_cola_1.delete(0, tk.END)
 
@@ -2852,7 +2520,6 @@ def limpar_campo_esticagem():
 
     entry_cola_2.configure(state="readonly")
 
-   
 
     entry_data.configure(state="normal")
 
@@ -2860,13 +2527,11 @@ def limpar_campo_esticagem():
 
     entry_data.configure(state="readonly")
 
-   
 
     entry_status.delete(0, tk.END)
 
     entry_motivo.delete("1.0", tk.END)
 
-   
 
     for entry_x, entry_y in entries_tensao:
 
@@ -2874,43 +2539,31 @@ def limpar_campo_esticagem():
 
         entry_y.delete(0, tk.END)
 
-   
 
     # Focar novamente no ID Quadro
 
     entry_id_quadro.focus_set()
 
- 
-
- 
 
 # --- Vincular função ao botão existente ---
 
 botao_salvar_esticagem.configure(command=salvar_dados_esticagem)
 
- 
-
- 
-
- 
 
 titulo_pos_esticagem = tk.Label(content_frame, text="2. Pós-esticagem", font=font_title)
 
 titulo_pos_esticagem.grid(row=7, column=0, columnspan=7, pady=(30, 25), sticky="nsew")
 
- 
 
 frame_3dias_cola = tk.LabelFrame(content_frame, text="3 dias após a aplicação da cola", font=font_frame_title, padx=10, pady=10)
 
 frame_3dias_cola.grid(row=8, column=0, columnspan=3, sticky="nsew", padx=(10,20), pady=(10,10))
 
- 
 
 frame_tensao_pos = tk.LabelFrame(content_frame, text="Tabela de Tensão (mm) X e Y", font=font_frame_title, padx=10, pady=10)
 
 frame_tensao_pos.grid(row=8, column=3, columnspan=4, sticky="nsew", padx=(20,10), pady=(10,10))
 
- 
 
 for col in range(4):
 
@@ -2920,7 +2573,6 @@ for col in range(3):
 
     frame_tensao_pos.grid_columnconfigure(col, weight=1)
 
- 
 
 def create_3dias_entry(parent, row, col, width=12, readonly=True):
 
@@ -2934,27 +2586,22 @@ def create_3dias_entry(parent, row, col, width=12, readonly=True):
 
     return e
 
- 
 
 # Linha 0 — Tensão (mm)
 
 tk.Label(frame_3dias_cola, text="Tensão (mm):", font=font_subtitle).grid(row=0, column=0, sticky="e", pady=3)
 
- 
 
 entry_tensao_3d = create_3dias_entry(frame_3dias_cola, 0, 1)
 
- 
 
 label_pm_3d = tk.Label(frame_3dias_cola, text="+/-", font=font_subtitle)
 
 label_pm_3d.grid(row=0, column=2, pady=3)
 
- 
 
 entry_tensao_plusminus_3d = create_3dias_entry(frame_3dias_cola, 0, 3)
 
- 
 
 # Linha 1 — De/Até
 
@@ -2962,21 +2609,17 @@ tk.Label(frame_3dias_cola, text="De:", font=font_subtitle).grid(row=1, column=0,
 
 entry_de_3d = create_3dias_entry(frame_3dias_cola, 1, 1)
 
- 
 
 label_ate_3d = tk.Label(frame_3dias_cola, text="à", font=font_subtitle)
 
 label_ate_3d.grid(row=1, column=2, pady=3, sticky="nsew")
 
- 
 
 entry_ate_3d = create_3dias_entry(frame_3dias_cola, 1, 3)
 
- 
 
 entry_ate_3d = create_3dias_entry(frame_3dias_cola, 1, 3)
 
- 
 
 tk.Label(frame_3dias_cola, text="Parâmetros de:", font=font_subtitle).grid(
 
@@ -2998,7 +2641,6 @@ entry_parametros_3d.config(
 
 )
 
- 
 
 tk.Label(frame_3dias_cola, text="Espessura (μm):", font=font_subtitle).grid(
 
@@ -3010,23 +2652,19 @@ frame_espessura_3d = tk.Frame(frame_3dias_cola)
 
 frame_espessura_3d.grid(row=3, column=1, sticky="w", pady=3)
 
- 
 
 espessura_3d_vars = [tk.StringVar() for _ in range(5)]
 
- 
 
 # 1. Cria a variável que vai armazenar a média
 
 media_3d_var = tk.StringVar()
 
- 
 
 # 2. Cria os Entry de input e adiciona trace
 
 espessura_3d_vars = [tk.StringVar() for _ in range(5)]
 
- 
 
 def calcular_media_espessura_3d(*args):
 
@@ -3048,7 +2686,6 @@ def calcular_media_espessura_3d(*args):
 
         media_3d_var.set("")
 
- 
 
 # Entry de input
 
@@ -3060,7 +2697,6 @@ for i, var in enumerate(espessura_3d_vars):
 
     var.trace_add("write", calcular_media_espessura_3d)
 
- 
 
 # Entry readonly da média (agora media_3d_var já existe)
 
@@ -3068,9 +2704,6 @@ entry_media_3d = tk.Entry(frame_espessura_3d, textvariable=media_3d_var, width=1
 
 entry_media_3d.grid(row=1, column=0, columnspan=5, pady=5)
 
- 
-
- 
 
 tk.Label(frame_tensao_pos, text="Tensão (mm):", font=font_subtitle).grid(row=0, column=0, padx=5)
 
@@ -3078,7 +2711,6 @@ tk.Label(frame_tensao_pos, text="X", font=font_subtitle).grid(row=0, column=1, p
 
 tk.Label(frame_tensao_pos, text="Y", font=font_subtitle).grid(row=0, column=2, padx=10)
 
- 
 
 entries_tensao_3d = []
 
@@ -3100,9 +2732,8 @@ for entry_x, entry_y in entries_tensao_3d:
 
     entry_x.bind("<FocusOut>", validar_entry)
 
-    entry_y.bind("<FocusOut>", validar_entry)   
+    entry_y.bind("<FocusOut>", validar_entry)
 
- 
 
 espessura_3d_entries = []
 
@@ -3116,25 +2747,21 @@ for i, var in enumerate(espessura_3d_vars):
 
     espessura_3d_entries.append(entry)
 
- 
 
 entry_media_espessura = tk.Entry(frame_espessura_3d, textvariable=media_3d_var, width=10, font=font_subtitle, justify="center", state="readonly")
 
 entry_media_espessura.grid(row=1, column=0, columnspan=5, pady=5)
 
- 
 
 func_data_pos_frame = tk.Frame(content_frame)
 
 func_data_pos_frame.grid(row=9, column=0, columnspan=7, pady=(20,15), sticky="ew")
 
- 
 
 for col in range(5):
 
     func_data_pos_frame.grid_columnconfigure(col, weight=1)
 
- 
 
 label_func_codigo_pos = tk.Label(func_data_pos_frame, text="Funcionário:", width=label_width, anchor="e", font=font_subtitle)
 
@@ -3144,13 +2771,11 @@ entry_func_codigo_pos = tk.Entry(func_data_pos_frame, width=12, font=font_subtit
 
 entry_func_codigo_pos.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 entry_func_nome_pos = tk.Entry(func_data_pos_frame, width=35, font=font_subtitle, state="readonly")
 
 entry_func_nome_pos.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 label_data_pos = tk.Label(func_data_pos_frame, text="Data:", width=label_width, anchor="e", font=font_subtitle)
 
@@ -3160,7 +2785,6 @@ entry_data_pos = tk.Entry(func_data_pos_frame, width=25, font=font_subtitle, sta
 
 entry_data_pos.grid(row=0, column=4, padx=5, pady=5, sticky="w",)
 
- 
 
 def on_matricula_pos_focusout(event):
 
@@ -3178,7 +2802,6 @@ def on_matricula_pos_focusout(event):
 
         return
 
- 
 
     nome = buscar_funcionario_por_matricula(matricula)
 
@@ -3192,7 +2815,6 @@ def on_matricula_pos_focusout(event):
 
         entry_func_nome_pos.configure(state="readonly")
 
- 
 
         hoje = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
@@ -3216,27 +2838,21 @@ def on_matricula_pos_focusout(event):
 
         entry_data_pos.delete(0, tk.END)
 
- 
 
 entry_func_codigo.bind("<FocusOut>", on_matricula_focusout)
 
 entry_func_codigo_pos.bind("<FocusOut>", on_matricula_focusout)
 
- 
-
- 
 
 frame_apontamento_pos = tk.LabelFrame(content_frame, text="Apontamento - Pós-Esticagem", font=font_frame_title, padx=10, pady=10)
 
 frame_apontamento_pos.grid(row=10, column=0, columnspan=7, sticky="ew", padx=10, pady=(0, 20))
 
- 
 
 for col in range(7):
 
     frame_apontamento_pos.grid_columnconfigure(col, weight=1)
 
- 
 
 tk.Label(frame_apontamento_pos, text="Status:", font=font_subtitle, width=label_width, anchor="e").grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
@@ -3244,7 +2860,6 @@ entry_status_pos = tk.Entry(frame_apontamento_pos, width=15, font=font_subtitle,
 
 entry_status_pos.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 tk.Label(frame_apontamento_pos, text="Observação:", font=font_subtitle, width=label_width, anchor="e").grid(row=1, column=0, padx=5, pady=5, sticky="ne")
 
@@ -3252,7 +2867,6 @@ entry_motivo_pos = tk.Text(frame_apontamento_pos, width=50, height=4, font=font_
 
 entry_motivo_pos.grid(row=1, column=1, columnspan=5, padx=5, pady=5, sticky="w")
 
- 
 
 def salvar_e_limpar_pos_esticagem():
 
@@ -3260,7 +2874,6 @@ def salvar_e_limpar_pos_esticagem():
 
         cursor = conn.cursor()
 
- 
 
         id_quadro_val = entry_id_quadro.get().strip()
 
@@ -3270,7 +2883,6 @@ def salvar_e_limpar_pos_esticagem():
 
             return
 
- 
 
         # --- Verificar se o quadro existe em esticagem ---
 
@@ -3278,13 +2890,11 @@ def salvar_e_limpar_pos_esticagem():
 
         existe = cursor.fetchone()[0]
 
- 
 
         if existe == 0:
 
             messagebox.showerror("Erro", "É necessário preencher Esticagem primeiro.")
 
- 
 
             # --- Limpar também os campos de pós-esticagem ---
 
@@ -3310,11 +2920,9 @@ def salvar_e_limpar_pos_esticagem():
 
             entry_data_pos.delete(0, tk.END)
 
- 
 
             return
 
- 
 
         # --- Preparar dados ---
 
@@ -3324,7 +2932,6 @@ def salvar_e_limpar_pos_esticagem():
 
         observacao_val = entry_motivo_pos.get("1.0", tk.END).strip()
 
- 
 
         # --- Validar obrigatoriedade ---
 
@@ -3334,7 +2941,6 @@ def salvar_e_limpar_pos_esticagem():
 
             return
 
- 
 
         # --- Verificar duplicidade em pos_esticagem ---
 
@@ -3354,7 +2960,6 @@ def salvar_e_limpar_pos_esticagem():
 
         ultimo_status_pos = row_pos[0] if row_pos else None
 
- 
 
         if ultimo_status_pos == "OK" and status_val.upper() == "OK":
 
@@ -3362,7 +2967,6 @@ def salvar_e_limpar_pos_esticagem():
 
             return
 
- 
 
         # Validar todas as medições
 
@@ -3390,7 +2994,6 @@ def salvar_e_limpar_pos_esticagem():
 
                 return
 
- 
 
         media_val = media_3d_var.get().strip()
 
@@ -3410,7 +3013,6 @@ def salvar_e_limpar_pos_esticagem():
 
             return
 
- 
 
         # Observação obrigatória apenas quando status = "NG"
 
@@ -3420,11 +3022,9 @@ def salvar_e_limpar_pos_esticagem():
 
             return
 
- 
 
         data_val = datetime.now()
 
- 
 
         # --- Inserir pós-esticagem ---
 
@@ -3472,7 +3072,6 @@ def salvar_e_limpar_pos_esticagem():
 
         conn.commit()
 
- 
 
         # --- Limpar todos os campos ---
 
@@ -3492,7 +3091,6 @@ def salvar_e_limpar_pos_esticagem():
 
             widget.delete(0, tk.END)
 
- 
 
         combo_origem.set('')
 
@@ -3502,7 +3100,6 @@ def salvar_e_limpar_pos_esticagem():
 
         entry_motivo_pos.delete("1.0", tk.END)
 
- 
 
         for entry_x, entry_y in entries_tensao:
 
@@ -3514,7 +3111,6 @@ def salvar_e_limpar_pos_esticagem():
 
             entry_y.delete(0, tk.END)
 
- 
 
         for entry_x, entry_y in entries_tensao_3d:
 
@@ -3526,7 +3122,6 @@ def salvar_e_limpar_pos_esticagem():
 
             entry_y.delete(0, tk.END)
 
- 
 
         for entry in espessura_3d_entries:
 
@@ -3534,45 +3129,24 @@ def salvar_e_limpar_pos_esticagem():
 
             entry.delete(0, tk.END)
 
- 
 
         radio_normal.config(state="normal")
 
         radio_bias.config(state="normal")
 
- 
 
         messagebox.showinfo("Sucesso", "Dados de pós-esticagem salvos com sucesso!")
 
- 
 
         # Voltar foco no ID quadro
 
         entry_id_quadro.focus_set()
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Falha ao salvar e limpar campos: {e}")
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 botao_salvar_pos = tk.Button(
 
@@ -3590,63 +3164,31 @@ botao_salvar_pos = tk.Button(
 
 botao_salvar_pos.grid(row=2, column=0, columnspan=7, pady=(10, 0))
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 titulo_emulsao = tk.Label(content_frame, text="3. Emulsão", font=font_title)
 
 titulo_emulsao.grid(row=11, column=0, columnspan=7, pady=(30, 25), sticky="nsew")
 
- 
-
- 
 
 font_subtitle = ("Arial", 10)
 
 label_width = 15
 
- 
-
- 
-
- 
 
 titulo_emulsao = tk.Label(content_frame, text="3. Emulsão", font=font_title)
 
 titulo_emulsao.grid(row=11, column=0, columnspan=7, pady=(30, 25), sticky="nsew")
 
- 
-
- 
 
 frame_emulsao_interno = tk.Frame(content_frame)
 
 frame_emulsao_interno.grid(row=12, column=0, columnspan=7, sticky="ew", padx=0, pady=5)
 
- 
-
- 
 
 for col in range(7):
 
     frame_emulsao_interno.columnconfigure(col, weight=0)
 
- 
-
- 
 
 label_emulsao_qr = tk.Label(
 
@@ -3664,7 +3206,6 @@ label_emulsao_qr = tk.Label(
 
 label_emulsao_qr.grid(row=0, column=0, padx=(0,5), pady=5, sticky="e")
 
- 
 
 entry_emulsao_qr = tk.Entry(
 
@@ -3680,7 +3221,6 @@ entry_emulsao_qr = tk.Entry(
 
 entry_emulsao_qr.grid(row=0, column=1, padx=(0,15), pady=5, sticky="w")
 
- 
 
 entry_emulsao_qr_readonly = tk.Entry(
 
@@ -3698,7 +3238,6 @@ entry_emulsao_qr_readonly = tk.Entry(
 
 entry_emulsao_qr_readonly.grid(row=0, column=2, padx=(0,15), pady=5, sticky="w")
 
- 
 
 label_polimero = tk.Label(
 
@@ -3716,15 +3255,9 @@ label_polimero = tk.Label(
 
 label_polimero.grid(row=0, column=3, padx=(0,5), pady=5, sticky="e")
 
- 
-
- 
 
 var_msfilm = tk.BooleanVar()
 
- 
-
- 
 
 checkbox_msfilm = tk.Checkbutton(
 
@@ -3740,9 +3273,6 @@ checkbox_msfilm = tk.Checkbutton(
 
 checkbox_msfilm.grid(row=0, column=4, padx=(0,10), pady=5, sticky="w")
 
- 
-
- 
 
 checkbox_msfilm.bind("<Button-1>", lambda e: "break")
 
@@ -3750,9 +3280,6 @@ checkbox_msfilm.bind("<space>", lambda e: "break")
 
 checkbox_msfilm.bind("<Return>", lambda e: "break")
 
- 
-
- 
 
 def verificar_msfilm(*args):
 
@@ -3760,9 +3287,6 @@ def verificar_msfilm(*args):
 
     var_msfilm.set("BC-10" in valor)
 
- 
-
- 
 
 entry_emulsao_qr_readonly_var = tk.StringVar()
 
@@ -3770,25 +3294,16 @@ entry_emulsao_qr_readonly.configure(textvariable=entry_emulsao_qr_readonly_var)
 
 entry_emulsao_qr_readonly_var.trace_add("write", verificar_msfilm)
 
- 
-
- 
 
 for col in range(7):
 
     frame_emulsao_interno.columnconfigure(col, weight=1)
 
- 
 
 import tkinter.font as font
 
 font_subtitle_underline = font.Font(family="Arial", size=11, underline=True)
 
- 
-
- 
-
- 
 
 frame_parametro_espessura = tk.LabelFrame(
 
@@ -3806,20 +3321,15 @@ frame_parametro_espessura = tk.LabelFrame(
 
 frame_parametro_espessura.grid(row=1, column=0, columnspan=7, sticky="ew", padx=0, pady=5)
 
- 
-
- 
 
 for col in range(7):
 
     frame_parametro_espessura.columnconfigure(col, weight=1)
 
- 
 
 tk.Label(frame_parametro_espessura, text="Espessura (µm):", font=font_subtitle)\
     .grid(row=0, column=1, sticky="e", pady=3)
 
- 
 
 entry_espessura_base = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
@@ -3827,12 +3337,10 @@ entry_espessura_base = tk.Entry(frame_parametro_espessura, width=12, font=font_s
 
 entry_espessura_base.grid(row=0, column=2, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_parametro_espessura, text="+/-", font=font_subtitle)\
     .grid(row=0, column=3, pady=3, sticky="nsew")
 
- 
 
 entry_tolerancia = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
@@ -3840,12 +3348,10 @@ entry_tolerancia = tk.Entry(frame_parametro_espessura, width=12, font=font_subti
 
 entry_tolerancia.grid(row=0, column=4, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_parametro_espessura, text="De:", font=font_subtitle)\
     .grid(row=1, column=1, sticky="e", pady=3)
 
- 
 
 entry_minimo = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
@@ -3853,12 +3359,10 @@ entry_minimo = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
 entry_minimo.grid(row=1, column=2, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_parametro_espessura, text="à", font=font_subtitle)\
     .grid(row=1, column=3, pady=3, sticky="nsew")
 
- 
 
 entry_maximo = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
@@ -3866,12 +3370,10 @@ entry_maximo = tk.Entry(frame_parametro_espessura, width=12, font=font_subtitle,
 
 entry_maximo.grid(row=1, column=4, pady=3, sticky="w")
 
- 
 
 tk.Label(frame_parametro_espessura, text="Parâmetros de:", font=font_subtitle)\
     .grid(row=2, column=1, sticky="e", pady=3)
 
- 
 
 entry_datahora = tk.Entry(frame_parametro_espessura, width=25, font=font_subtitle,
 
@@ -3879,9 +3381,6 @@ entry_datahora = tk.Entry(frame_parametro_espessura, width=25, font=font_subtitl
 
 entry_datahora.grid(row=2, column=2, columnspan=3, pady=3, sticky="w")
 
- 
-
- 
 
 def atualizar_parametro_espessura():
 
@@ -3907,7 +3406,6 @@ def atualizar_parametro_espessura():
 
         minimo, maximo, datetime_col = row.minimo, row.maximo, row.datetime_col
 
-       
 
         # Converte para inteiro, arredondando os valores calculados
 
@@ -3919,11 +3417,9 @@ def atualizar_parametro_espessura():
 
         maximo_int = int(maximo)
 
-       
 
         data_hora_str = datetime_col.strftime("%d/%m/%Y %H:%M:%S") if datetime_col else "sem data"
 
- 
 
         # Preenche os campos com valores inteiros e texto da data/hora
 
@@ -3949,81 +3445,56 @@ def atualizar_parametro_espessura():
 
             entry.config(state="readonly")
 
- 
 
     cursor.close()
 
- 
-
- 
-
- 
-
- 
 
 atualizar_parametro_espessura()
 
- 
-
- 
 
 # Linha em branco horizontal dentro do mesmo frame
 
 tk.Label(frame_parametro_espessura, text="").grid(row=3, column=0, columnspan=7, pady=5)
 
- 
-
- 
 
 label_espessura = tk.Label(frame_parametro_espessura, text="Espessura:", font=font_subtitle, width=12, anchor="e")
 
 label_espessura.grid(row=4, column=0, padx=(0,2), pady=5, sticky="e")
 
- 
 
 label_espessura_1 = tk.Label(frame_parametro_espessura, text="Pós-esticagem (µm):", font=font_subtitle, width=15, anchor="e")
 
 label_espessura_1.grid(row=4, column=1, padx=(0,2), pady=5, sticky="e")
 
- 
 
 entry_espessura_1 = tk.Entry(frame_parametro_espessura, width=8, font=font_subtitle, justify="right", state="readonly")
 
 entry_espessura_1.grid(row=4, column=2, padx=(0,5), pady=5, sticky="w")
 
- 
 
 # Buscar valor do banco para pós-esticagem
 
- 
-
- 
-
- 
 
 label_espessura_2 = tk.Label(frame_parametro_espessura, text="Pós-Emulsão (µm):", font=font_subtitle, width=18, anchor="e")
 
 label_espessura_2.grid(row=4, column=3, padx=(0,2), pady=5, sticky="e")
 
- 
 
 def validar_inteiro(new_value):
 
     if new_value == "":
 
-        return True 
+        return True
 
     if new_value.startswith("-"):
 
-        return False 
+        return False
 
     return new_value.isdigit()
 
- 
 
 vcmd = frame_parametro_espessura.register(validar_inteiro)
 
- 
 
 entry_espessura_2 = tk.Entry(
 
@@ -4035,21 +3506,16 @@ entry_espessura_2 = tk.Entry(
 
 entry_espessura_2.grid(row=4, column=4, padx=(0,5), pady=5, sticky="w")
 
- 
-
- 
 
 label_espessura_3 = tk.Label(frame_parametro_espessura, text="Emulsão (µm):", font=font_subtitle, width=13, anchor="e")
 
 label_espessura_3.grid(row=4, column=5, padx=(0,2), pady=5, sticky="e")
 
- 
 
 entry_espessura_3 = tk.Entry(frame_parametro_espessura, width=10, font=font_subtitle, justify="right", state="readonly")
 
 entry_espessura_3.grid(row=4, column=6, padx=(0,0), pady=5, sticky="w")
 
- 
 
 def atualizar_verificacao(event=None):
 
@@ -4061,7 +3527,6 @@ def atualizar_verificacao(event=None):
 
         emulsao_valor = None
 
- 
 
     try:
 
@@ -4071,25 +3536,21 @@ def atualizar_verificacao(event=None):
 
         pos_esticagem_valor_float = None
 
- 
 
     entry_espessura_3.config(state="normal")
 
     entry_espessura_3.delete(0, tk.END)
 
- 
 
     entry_status_emulsao.config(state="normal")
 
     entry_status_emulsao.delete(0, tk.END)
 
- 
 
     if emulsao_valor is not None and pos_esticagem_valor_float is not None:
 
         diferenca = int(round(emulsao_valor - pos_esticagem_valor_float))
 
- 
 
         # Puxa mínimo e máximo do banco
 
@@ -4117,13 +3578,11 @@ def atualizar_verificacao(event=None):
 
             minimo_range, maximo_range = 4, 8
 
- 
 
         entry_espessura_3.insert(0, str(diferenca))
 
         entry_espessura_3.config(state="readonly")
 
- 
 
         # --- Atualiza status ---
 
@@ -4147,7 +3606,6 @@ def atualizar_verificacao(event=None):
 
             entry_status_emulsao.config(
 
-               
 
                 readonlybackground="white",
 
@@ -4171,55 +3629,41 @@ def atualizar_verificacao(event=None):
 
         )
 
- 
 
 # Vincular evento FocusOut
 
 entry_espessura_2.bind("<FocusOut>", atualizar_verificacao)
 
- 
-
- 
-
- 
-
- 
 
 func_emulsao_frame = tk.Frame(content_frame)
 
 func_emulsao_frame.grid(row=13, column=0, columnspan=7, sticky="ew", padx=10, pady=5)
 
- 
 
 label_func_codigo_emulsao = tk.Label(func_emulsao_frame, text="Funcionário:", width=label_width, anchor="e", font=font_subtitle)
 
 label_func_codigo_emulsao.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
- 
 
 entry_func_codigo_emulsao = tk.Entry(func_emulsao_frame, width=12, font=font_subtitle)
 
 entry_func_codigo_emulsao.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 entry_func_nome_emulsao = tk.Entry(func_emulsao_frame, width=35, font=font_subtitle, state="readonly")
 
 entry_func_nome_emulsao.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 label_data_emulsao = tk.Label(func_emulsao_frame, text="Data:", width=label_width, anchor="e", font=font_subtitle)
 
 label_data_emulsao.grid(row=0, column=3, padx=5, pady=5, sticky="e")
 
- 
 
 entry_data_emulsao = tk.Entry(func_emulsao_frame, width=25, font=font_subtitle, state="readonly")
 
 entry_data_emulsao.grid(row=0, column=4, padx=5, pady=5, sticky="w")
 
- 
 
 def on_matricula_emulsao_focusout(event):
 
@@ -4235,7 +3679,6 @@ def on_matricula_emulsao_focusout(event):
 
         entry_func_nome_emulsao.configure(state="readonly")
 
- 
 
         entry_data_emulsao.configure(state="normal")
 
@@ -4245,7 +3688,6 @@ def on_matricula_emulsao_focusout(event):
 
         return
 
- 
 
     matricula = extrair_matricula(codigo_lido)
 
@@ -4255,7 +3697,6 @@ def on_matricula_emulsao_focusout(event):
 
         entry_func_codigo_emulsao.delete(0, tk.END)
 
- 
 
         entry_func_nome_emulsao.configure(state="normal")
 
@@ -4263,7 +3704,6 @@ def on_matricula_emulsao_focusout(event):
 
         entry_func_nome_emulsao.configure(state="readonly")
 
- 
 
         entry_data_emulsao.configure(state="normal")
 
@@ -4271,13 +3711,11 @@ def on_matricula_emulsao_focusout(event):
 
         entry_data_emulsao.configure(state="readonly")
 
- 
 
         entry_func_codigo_emulsao.focus_set()
 
         return
 
- 
 
     # AQUI, independente do status NG, aceita a matrícula e busca nome
 
@@ -4285,7 +3723,6 @@ def on_matricula_emulsao_focusout(event):
 
     entry_func_codigo_emulsao.insert(0, matricula)
 
- 
 
     nome = buscar_funcionario_por_matricula(matricula)
 
@@ -4299,7 +3736,6 @@ def on_matricula_emulsao_focusout(event):
 
         entry_func_nome_emulsao.configure(state="readonly")
 
- 
 
         from datetime import datetime
 
@@ -4325,7 +3761,6 @@ def on_matricula_emulsao_focusout(event):
 
         entry_func_nome_emulsao.configure(state="readonly")
 
- 
 
         entry_data_emulsao.configure(state="normal")
 
@@ -4333,35 +3768,22 @@ def on_matricula_emulsao_focusout(event):
 
         entry_data_emulsao.configure(state="readonly")
 
- 
 
         entry_func_codigo_emulsao.focus_set()
 
- 
-
- 
 
 entry_func_codigo_emulsao.bind("<FocusOut>", on_matricula_emulsao_focusout)
 
- 
-
- 
-
- 
-
- 
 
 frame_apontamento_emulsao = tk.LabelFrame(content_frame, text="Apontamento - Emulsão", font=font_frame_title, padx=10, pady=10)
 
 frame_apontamento_emulsao.grid(row=14, column=0, columnspan=7, sticky="ew", padx=10, pady=(10,20))
 
- 
 
 for col in range(7):
 
     frame_apontamento_emulsao.grid_columnconfigure(col, weight=1)
 
- 
 
 tk.Label(frame_apontamento_emulsao, text="Status:", font=font_subtitle, width=label_width, anchor="e").grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
@@ -4369,7 +3791,6 @@ entry_status_emulsao = tk.Entry(frame_apontamento_emulsao, width=15, font=font_s
 
 entry_status_emulsao.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 tk.Label(frame_apontamento_emulsao, text="Observação:", font=font_subtitle, width=label_width, anchor="e").grid(row=1, column=0, padx=5, pady=5, sticky="ne")
 
@@ -4377,9 +3798,6 @@ entry_motivo_emulsao = tk.Text(frame_apontamento_emulsao, width=50, height=4, fo
 
 entry_motivo_emulsao.grid(row=1, column=1, columnspan=5, padx=5, pady=5, sticky="w")
 
- 
-
- 
 
 #SALVAR EMULSÃO
 
@@ -4401,7 +3819,6 @@ def limpar_campos_esticagem():
 
     radio_bias.config(state="disabled")
 
- 
 
     # Tensões
 
@@ -4419,7 +3836,6 @@ def limpar_campos_esticagem():
 
         entry_y.config(state="readonly")
 
- 
 
     # Funcionário
 
@@ -4435,7 +3851,6 @@ def limpar_campos_esticagem():
 
     entry_func_nome.config(state="readonly")
 
- 
 
     # Bias
 
@@ -4445,7 +3860,6 @@ def limpar_campos_esticagem():
 
     entry_bias.config(state="disabled")
 
- 
 
     # Mesh / Cola
 
@@ -4457,7 +3871,6 @@ def limpar_campos_esticagem():
 
         entry_widget.config(state="readonly")
 
- 
 
     # Motivo, status e data
 
@@ -4479,9 +3892,6 @@ def limpar_campos_esticagem():
 
     entry_data.config(state="readonly")
 
- 
-
- 
 
 def limpar_campos_pos_esticagem_editavel():
 
@@ -4493,13 +3903,11 @@ def limpar_campos_pos_esticagem_editavel():
 
     entry_func_codigo_pos.delete(0, tk.END)
 
- 
 
     entry_func_nome_pos.config(state="normal")
 
     entry_func_nome_pos.delete(0, tk.END)
 
- 
 
     # Tensões 3D
 
@@ -4513,7 +3921,6 @@ def limpar_campos_pos_esticagem_editavel():
 
         entry_y.delete(0, tk.END)
 
- 
 
     # Média 3D
 
@@ -4521,7 +3928,6 @@ def limpar_campos_pos_esticagem_editavel():
 
     entry_media_3d.delete(0, tk.END)
 
-   
 
     for entry in espessura_3d_entries:
 
@@ -4529,7 +3935,6 @@ def limpar_campos_pos_esticagem_editavel():
 
         entry.delete(0, tk.END)
 
-   
 
     # Motivo
 
@@ -4537,7 +3942,6 @@ def limpar_campos_pos_esticagem_editavel():
 
     entry_motivo_pos.delete("1.0", tk.END)
 
- 
 
     # Status e data
 
@@ -4545,15 +3949,11 @@ def limpar_campos_pos_esticagem_editavel():
 
     entry_status_pos.delete(0, tk.END)
 
- 
 
     entry_data_pos.config(state="normal")
 
     entry_data_pos.delete(0, tk.END)
 
- 
-
- 
 
 def limpar_campos_pos_esticagem():
 
@@ -4567,7 +3967,6 @@ def limpar_campos_pos_esticagem():
 
     entry_func_codigo_pos.config(state="readonly")
 
- 
 
     entry_func_nome_pos.config(state="normal")
 
@@ -4575,7 +3974,6 @@ def limpar_campos_pos_esticagem():
 
     entry_func_nome_pos.config(state="readonly")
 
- 
 
     # Tensões 3D
 
@@ -4593,7 +3991,6 @@ def limpar_campos_pos_esticagem():
 
         entry_y.config(state="readonly")
 
- 
 
     # Média 3D
 
@@ -4603,7 +4000,6 @@ def limpar_campos_pos_esticagem():
 
     entry_media_3d.config(state="readonly")
 
- 
 
     # Motivo
 
@@ -4613,7 +4009,6 @@ def limpar_campos_pos_esticagem():
 
     entry_motivo_pos.config(state="disabled")
 
- 
 
     # Status e data
 
@@ -4623,7 +4018,6 @@ def limpar_campos_pos_esticagem():
 
     entry_status_pos.config(state="readonly")
 
- 
 
     entry_data_pos.config(state="normal")
 
@@ -4631,9 +4025,6 @@ def limpar_campos_pos_esticagem():
 
     entry_data_pos.config(state="readonly")
 
- 
-
- 
 
 def limpar_campos_emulsao():
 
@@ -4661,7 +4052,6 @@ def limpar_campos_emulsao():
 
     ]
 
- 
 
     for entry in campos_para_limpar:
 
@@ -4679,7 +4069,6 @@ def limpar_campos_emulsao():
 
         entry.config(state=estado_original)
 
- 
 
     # --- Texts ---
 
@@ -4689,13 +4078,11 @@ def limpar_campos_emulsao():
 
     entry_motivo_emulsao.config(state="normal")  # Text não tem readonly, mas bloqueado pode ser feito
 
- 
 
     # --- Checkbuttons ---
 
     var_msfilm.set(False)
 
- 
 
 def limpar_campos_emulsao_editavel():
 
@@ -4715,7 +4102,6 @@ def limpar_campos_emulsao_editavel():
 
         entry_emulsao_qr_readonly,
 
-       
 
         entry_espessura_2,
 
@@ -4731,7 +4117,6 @@ def limpar_campos_emulsao_editavel():
 
     ]
 
- 
 
     for entry in campos_para_limpar:
 
@@ -4739,7 +4124,6 @@ def limpar_campos_emulsao_editavel():
 
         entry.delete(0, tk.END)
 
- 
 
     # --- Text editável ---
 
@@ -4747,17 +4131,11 @@ def limpar_campos_emulsao_editavel():
 
     entry_motivo_emulsao.delete("1.0", tk.END)
 
- 
 
     # --- Checkbuttons ---
 
     var_msfilm.set(False)
 
- 
-
- 
-
- 
 
 from datetime import datetime
 
@@ -4765,7 +4143,6 @@ import pyodbc
 
 from tkinter import messagebox
 
- 
 
 def limpar_id_quadro():
 
@@ -4777,9 +4154,6 @@ def limpar_id_quadro():
 
     entry_id_quadro.focus_set()
 
- 
-
- 
 
 def salvar_emulsao():
 
@@ -4787,7 +4161,6 @@ def salvar_emulsao():
 
         cursor = conn.cursor()
 
- 
 
         # --- Pegar ID do quadro ---
 
@@ -4799,7 +4172,6 @@ def salvar_emulsao():
 
             return
 
- 
 
         # --- Verificar se o quadro existe em esticagem ---
 
@@ -4813,7 +4185,6 @@ def salvar_emulsao():
 
             return
 
- 
 
         # --- Verificar status da última emulsão ---
 
@@ -4823,7 +4194,6 @@ def salvar_emulsao():
 
         emulsao_ok = row_status_emulsao and row_status_emulsao[0].upper() == "OK"
 
- 
 
         # --- Verificar status da última revelação ---
 
@@ -4833,7 +4203,6 @@ def salvar_emulsao():
 
         revelacao_ng = row_status_revelacao and row_status_revelacao[0].upper() == "NG"
 
- 
 
         # --- Bloqueio de salvar emulsão ---
 
@@ -4849,7 +4218,6 @@ def salvar_emulsao():
 
             return
 
- 
 
         # --- Obter demais dados da interface ---
 
@@ -4873,7 +4241,6 @@ def salvar_emulsao():
 
         observacao_val = entry_motivo_emulsao.get("1.0", tk.END).strip()
 
- 
 
         # --- Validações obrigatórias ---
 
@@ -4884,7 +4251,6 @@ def salvar_emulsao():
 
             return
 
- 
 
         # Observação obrigatória quando status for NG
 
@@ -4896,7 +4262,6 @@ def salvar_emulsao():
 
             return
 
- 
 
         # --- Inserir no banco ---
 
@@ -4922,13 +4287,11 @@ def salvar_emulsao():
 
         ))
 
- 
 
         conn.commit()
 
         cursor.close()
 
- 
 
         # --- Limpar apenas se salvou com sucesso ---
 
@@ -4940,23 +4303,14 @@ def salvar_emulsao():
 
         limpar_id_quadro()
 
- 
 
         messagebox.showinfo("Sucesso", "Emulsão salva com sucesso!")
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro de Banco", f"Ocorreu um erro ao salvar a emulsão:\n{e}")
 
- 
-
- 
-
- 
-
- 
 
 # --- Botão Salvar Emulsão ---
 
@@ -4974,25 +4328,11 @@ botao_salvar_emulsao = tk.Button(
 
 botao_salvar_emulsao.grid(row=2, column=0, columnspan=7, pady=(10,0))
 
- 
-
- 
-
- 
-
- 
 
 titulo_revelacao = tk.Label(content_frame, text="4. Revelação", font=font_title)
 
 titulo_revelacao.grid(row=15, column=0, columnspan=7, pady=(30, 25), sticky="nsew")
 
- 
-
- 
-
- 
-
- 
 
 # ------------------- Frame Revelação -------------------
 
@@ -5000,7 +4340,6 @@ frame_revelacao = tk.Frame(content_frame)
 
 frame_revelacao.grid(row=16, column=0, columnspan=7, sticky="ew", padx=10, pady=5)
 
- 
 
 # Configura 3 colunas principais do frame
 
@@ -5008,7 +4347,6 @@ for col in range(3):
 
     frame_revelacao.columnconfigure(col, weight=1)
 
- 
 
 # --- Labels e entries iniciais ---
 
@@ -5016,53 +4354,41 @@ label_fotolito = tk.Label(frame_revelacao, text="Fotolito (QR):", font=font_subt
 
 label_fotolito.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
- 
 
 entry_fotolito = tk.Entry(frame_revelacao, width=16, font=font_subtitle, justify="left")
 
 entry_fotolito.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 entry_fotolito_readonly = tk.Entry(frame_revelacao, width=25, font=font_subtitle, justify="left", state="readonly")
 
 entry_fotolito_readonly.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 entry_fotolito_extra = tk.Entry(frame_revelacao, width=40, font=font_subtitle, justify="left", state="readonly")
 
 entry_fotolito_extra.grid(row=0, column=4, padx=5, pady=5, sticky="w")
 
- 
-
- 
 
 label_modelo = tk.Label(frame_revelacao, text="Modelo:", font=font_subtitle, anchor="e", width=15)
 
 label_modelo.grid(row=1, column=0, padx=5, pady=5, sticky="e")
 
- 
 
 entry_modelo_readonly = tk.Entry(frame_revelacao, width=25, font=font_subtitle, justify="left", state="readonly")
 
 entry_modelo_readonly.grid(row=1, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 label_apelido = tk.Label(frame_revelacao, text="Apelido (ALIAS):", font=font_subtitle, anchor="e", width=15)
 
 label_apelido.grid(row=2, column=0, padx=5, pady=5, sticky="e")
 
- 
 
 entry_apelido_readonly = tk.Entry(frame_revelacao, width=25, font=font_subtitle, justify="left", state="readonly")
 
 entry_apelido_readonly.grid(row=2, column=2, padx=5, pady=5, sticky="w")
 
- 
-
- 
 
 # ---------------- Matriz 4x4 com cabeçalhos ----------------
 
@@ -5070,7 +4396,6 @@ frame_matriz = tk.Frame(frame_revelacao)
 
 frame_matriz.grid(row=3, column=0, columnspan=7, sticky="nsew")  # abaixo de Modelo/Apelido
 
- 
 
 # Configura colunas da matriz (4 colunas agora)
 
@@ -5078,7 +4403,6 @@ for col in range(4):
 
     frame_matriz.columnconfigure(col, weight=1)
 
- 
 
 # --- Cabeçalhos ---
 
@@ -5106,13 +4430,11 @@ for c, titulo in enumerate(headers):
 
     ).grid(row=0, column=c, sticky="nsew")
 
- 
 
 # --- Descrições fixas ---
 
 descricoes = ["Mesh", "Disposição", "Emulsão", "Uso/Destino"]
 
- 
 
 # --- Entradas da matriz (3 linhas x 3 colunas de dados), somente leitura ---
 
@@ -5122,7 +4444,6 @@ for r, desc in enumerate(descricoes, start=1):
 
     linha_entries = []
 
- 
 
     # Coluna de descrição (negrito, com borda leve)
 
@@ -5144,7 +4465,6 @@ for r, desc in enumerate(descricoes, start=1):
 
     ).grid(row=r, column=0, sticky="nsew")
 
- 
 
     # Demais colunas (Quadro, Fotolito, Verificação)
 
@@ -5162,7 +4482,6 @@ for r, desc in enumerate(descricoes, start=1):
 
             largura = 15
 
- 
 
         e = tk.Entry(
 
@@ -5186,13 +4505,9 @@ for r, desc in enumerate(descricoes, start=1):
 
         linha_entries.append(e)
 
- 
 
     matriz_entries.append(linha_entries)
 
- 
-
- 
 
 # --- Função para validar QR Fotolito e preencher dados ---
 
@@ -5212,7 +4527,6 @@ def verificar_mesh(quadro_val, fotolito_val):
 
     f = fotolito_val.upper().strip()
 
- 
 
     # Aceitar casos especiais
 
@@ -5228,15 +4542,11 @@ def verificar_mesh(quadro_val, fotolito_val):
 
     return q == f
 
- 
-
- 
 
 def on_fotolito_enter(event=None):
 
     codigo = entry_fotolito.get().strip()
 
-   
 
     if not codigo.endswith("F01"):
 
@@ -5246,7 +4556,6 @@ def on_fotolito_enter(event=None):
 
         return
 
- 
 
     cod_fotolito = codigo[:-3].lstrip("0") or "0"
 
@@ -5254,7 +4563,6 @@ def on_fotolito_enter(event=None):
 
     print(f"Função chamada. id_quadro='{id_quadro_val}', cod_fotolito='{cod_fotolito}'")
 
- 
 
     try:
 
@@ -5274,7 +4582,6 @@ def on_fotolito_enter(event=None):
 
             fotolito_row = cursor.fetchone()
 
- 
 
             # --- Buscar dados da tabela esticagem ---
 
@@ -5290,7 +4597,6 @@ def on_fotolito_enter(event=None):
 
             esticagem_row = cursor.fetchone()
 
- 
 
             # --- Buscar dados da tabela emulsao ---
 
@@ -5306,7 +4612,6 @@ def on_fotolito_enter(event=None):
 
             emulsao_row = cursor.fetchone()
 
- 
 
         # --- Preencher campos read-only Fotolito ---
 
@@ -5336,7 +4641,6 @@ def on_fotolito_enter(event=None):
 
             return
 
- 
 
         # --- Preparar valores para a matriz ---
 
@@ -5352,7 +4656,6 @@ def on_fotolito_enter(event=None):
 
         ]
 
- 
 
         valores_quadro = [
 
@@ -5364,7 +4667,6 @@ def on_fotolito_enter(event=None):
 
         ]
 
- 
 
         # --- Ajuste de exibição do Uso/Destino Quadro ---
 
@@ -5388,7 +4690,6 @@ def on_fotolito_enter(event=None):
 
             valores_quadro.append("Não encontrado")
 
- 
 
         # --- Verificação ---
 
@@ -5406,7 +4707,6 @@ def on_fotolito_enter(event=None):
 
         ]
 
- 
 
         # --- Preencher a matriz 4x4 ---
 
@@ -5422,7 +4722,6 @@ def on_fotolito_enter(event=None):
 
             e_quadro.config(state="readonly")
 
- 
 
             e_fotolito = matriz_entries[i][1]
 
@@ -5434,7 +4733,6 @@ def on_fotolito_enter(event=None):
 
             e_fotolito.config(state="readonly")
 
- 
 
             e_verif = matriz_entries[i][2]
 
@@ -5448,7 +4746,6 @@ def on_fotolito_enter(event=None):
 
             e_verif.config(state="readonly")
 
- 
 
         # --- Atualiza o Entry de Status geral ---
 
@@ -5464,11 +4761,9 @@ def on_fotolito_enter(event=None):
 
         entry_status_revelacao.config(state="readonly")
 
- 
 
         entry_func_codigo_revelacao.focus_set()
 
- 
 
     except Exception as e:
 
@@ -5478,15 +4773,6 @@ def on_fotolito_enter(event=None):
 
         entry_fotolito.focus_set()
 
- 
-
- 
-
- 
-
- 
-
- 
 
 # --- Bind para Enter e FocusOut ---
 
@@ -5494,19 +4780,6 @@ entry_fotolito.bind("<Return>", lambda event: on_fotolito_enter())
 
 entry_fotolito.bind("<FocusOut>", on_fotolito_enter)
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 # ---------------- Frame funcionário / data
 
@@ -5514,37 +4787,31 @@ func_revelacao_frame = tk.Frame(frame_revelacao)
 
 func_revelacao_frame.grid(row=4, column=0, columnspan=7, sticky="ew", padx=10, pady=(15, 5))
 
- 
 
 label_func_codigo_revelacao = tk.Label(func_revelacao_frame, text="Funcionário:", width=label_width, anchor="e", font=font_subtitle)
 
 label_func_codigo_revelacao.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
- 
 
 entry_func_codigo_revelacao = tk.Entry(func_revelacao_frame, width=12, font=font_subtitle)
 
 entry_func_codigo_revelacao.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
- 
 
 entry_func_nome_revelacao = tk.Entry(func_revelacao_frame, width=35, font=font_subtitle, state="readonly")
 
 entry_func_nome_revelacao.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
- 
 
 label_data_revelacao = tk.Label(func_revelacao_frame, text="Data:", width=label_width, anchor="e", font=font_subtitle)
 
 label_data_revelacao.grid(row=0, column=3, padx=5, pady=5, sticky="e")
 
- 
 
 entry_data_revelacao = tk.Entry(func_revelacao_frame, width=25, font=font_subtitle, state="readonly")
 
 entry_data_revelacao.grid(row=0, column=4, padx=5, pady=5, sticky="w")
 
- 
 
 # Função de leitura QR / matrícula
 
@@ -5560,7 +4827,6 @@ def on_matricula_revelacao_enter(event=None):
 
         entry_func_nome_revelacao.configure(state="readonly")
 
- 
 
         entry_data_revelacao.configure(state="normal")
 
@@ -5572,7 +4838,6 @@ def on_matricula_revelacao_enter(event=None):
 
         return
 
- 
 
     matricula = extrair_matricula(codigo_lido)
 
@@ -5586,13 +4851,11 @@ def on_matricula_revelacao_enter(event=None):
 
         return
 
- 
 
     entry_func_codigo_revelacao.delete(0, tk.END)
 
     entry_func_codigo_revelacao.insert(0, matricula)
 
- 
 
     nome = buscar_funcionario_por_matricula(matricula)
 
@@ -5606,7 +4869,6 @@ def on_matricula_revelacao_enter(event=None):
 
         entry_func_nome_revelacao.configure(state="readonly")
 
- 
 
         from datetime import datetime
 
@@ -5620,7 +4882,6 @@ def on_matricula_revelacao_enter(event=None):
 
         entry_data_revelacao.configure(state="readonly")
 
-       
 
         entry_status_revelacao.focus_set()
 
@@ -5632,17 +4893,9 @@ def on_matricula_revelacao_enter(event=None):
 
         entry_func_codigo_revelacao.focus_set()
 
- 
 
 entry_func_codigo_revelacao.bind("<Return>", on_matricula_revelacao_enter)
 
- 
-
- 
-
- 
-
- 
 
 # Apontamento - Revelação
 
@@ -5650,7 +4903,6 @@ frame_apontamento_revelacao = tk.LabelFrame(content_frame, text="Apontamento - R
 
 frame_apontamento_revelacao.grid(row=17, column=0, columnspan=7, sticky="ew", padx=10, pady=(10, 20))
 
- 
 
 frame_apontamento_revelacao.grid_columnconfigure(0, weight=1)
 
@@ -5658,7 +4910,6 @@ frame_apontamento_revelacao.grid_columnconfigure(1, weight=1)
 
 frame_apontamento_revelacao.grid_rowconfigure(99, weight=1)
 
- 
 
 # Frame esquerdo
 
@@ -5666,7 +4917,6 @@ frame_apontamento_esquerda = tk.Frame(frame_apontamento_revelacao)
 
 frame_apontamento_esquerda.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
 
- 
 
 # --- Status ---
 
@@ -5677,7 +4927,6 @@ entry_status_revelacao = tk.Entry(frame_apontamento_esquerda, width=15, font=fon
 
 entry_status_revelacao.grid(row=0, column=1, padx=0, pady=5, sticky="w")  # entry encostada
 
- 
 
 # --- Observação ---
 
@@ -5688,7 +4937,6 @@ entry_motivo_revelacao = tk.Text(frame_apontamento_esquerda, width=30, height=5,
 
 entry_motivo_revelacao.grid(row=1, column=1, padx=0, pady=5, sticky="w")  # texto encosta
 
- 
 
 def limpar_campos_revelacao():
 
@@ -5712,7 +4960,6 @@ def limpar_campos_revelacao():
 
     ]
 
-   
 
     for entry in campos_entry:
 
@@ -5724,7 +4971,6 @@ def limpar_campos_revelacao():
 
         entry.config(state=entry_state)    # volta ao state original
 
- 
 
     # --- Campos Text ---
 
@@ -5738,7 +4984,6 @@ def limpar_campos_revelacao():
 
         text_widget.delete("1.0", tk.END)
 
- 
 
     # --- Limpa a matriz 4x4 ---
 
@@ -5754,7 +4999,6 @@ def limpar_campos_revelacao():
 
             e.config(state=e_state)
 
- 
 
     # --- Campos readonly extras (fotolito, modelo, apelido, extra) ---
 
@@ -5784,15 +5028,11 @@ def limpar_campos_revelacao():
 
         e.config(state=e_state)
 
- 
-
- 
 
 def salvar_revelacao():
 
     status_val = entry_status_revelacao.get().strip().upper()
 
- 
 
     # --- Verifica se o status atual é NG ---
 
@@ -5802,7 +5042,6 @@ def salvar_revelacao():
 
         return
 
- 
 
     # --- Verifica se já existe registro OK para este quadro ---
 
@@ -5814,7 +5053,6 @@ def salvar_revelacao():
 
         return
 
- 
 
     try:
 
@@ -5836,7 +5074,6 @@ def salvar_revelacao():
 
         cursor.close()
 
- 
 
         if row and row[0].strip().upper() == "OK":
 
@@ -5850,7 +5087,6 @@ def salvar_revelacao():
 
             return
 
- 
 
         # --- Valores a serem salvos ---
 
@@ -5870,7 +5106,6 @@ def salvar_revelacao():
 
         observacao_val = entry_motivo_revelacao.get("1.0", tk.END).strip()
 
- 
 
         # --- Inserção no banco ---
 
@@ -5908,11 +5143,9 @@ def salvar_revelacao():
 
             conn.commit()
 
- 
 
         messagebox.showinfo("Sucesso", "Revelação salva com sucesso!")
 
- 
 
         # --- Limpa todos os campos inputáveis ---
 
@@ -5926,15 +5159,11 @@ def salvar_revelacao():
 
         limpar_id_quadro()
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Falha ao salvar revelação:\n{str(e)}")
 
- 
-
- 
 
 def limpar_campos_revelacao_editavel():
 
@@ -5948,7 +5177,6 @@ def limpar_campos_revelacao_editavel():
 
     """
 
- 
 
     # --- Campos Entry (editáveis pelo usuário) ---
 
@@ -5968,7 +5196,6 @@ def limpar_campos_revelacao_editavel():
 
         entry.delete(0, tk.END)
 
- 
 
     # --- Campo Text (observação é inputável) ---
 
@@ -5976,7 +5203,6 @@ def limpar_campos_revelacao_editavel():
 
     entry_motivo_revelacao.delete("1.0", tk.END)
 
- 
 
     # --- Matriz 4x4 (editáveis) ---
 
@@ -5988,7 +5214,6 @@ def limpar_campos_revelacao_editavel():
 
             e.delete(0, tk.END)
 
- 
 
     # --- Campos somente leitura (devem continuar readonly) ---
 
@@ -6016,11 +5241,6 @@ def limpar_campos_revelacao_editavel():
 
         e.config(state="readonly") # volta readonly
 
- 
-
- 
-
- 
 
 # Configura o grid do frame para expandir e empurrar o botão
 
@@ -6028,7 +5248,6 @@ frame_apontamento_esquerda.rowconfigure(99, weight=1)  # Linha "vazia" que ocupa
 
 frame_apontamento_esquerda.columnconfigure(0, weight=1)
 
- 
 
 botao_salvar_revelacao = tk.Button(
 
@@ -6052,19 +5271,11 @@ botao_salvar_revelacao.grid(
 
 )
 
- 
-
- 
 
 separator = tk.Frame(frame_apontamento_revelacao, width=2, bg="gray")
 
 separator.grid(row=0, column=1, sticky="ns", pady=5)
 
- 
-
- 
-
- 
 
 # Frame direito
 
@@ -6072,9 +5283,6 @@ frame_apontamento_direita = tk.Frame(frame_apontamento_revelacao)
 
 frame_apontamento_direita.grid(row=0, column=2, sticky="nsew", padx=(5, 0))
 
- 
-
- 
 
 # --- Frame para Fotolito (QR) ---
 
@@ -6082,7 +5290,6 @@ frame_fotolito = tk.Frame(frame_apontamento_direita)
 
 frame_fotolito.grid(row=0, column=0, columnspan=3, sticky="w", padx=5, pady=5)
 
- 
 
 tk.Label(frame_fotolito, text="Fotolito (QR):", font=font_subtitle, anchor="w").pack(side="left")
 
@@ -6090,9 +5297,6 @@ entry_fotolito_final = tk.Entry(frame_fotolito, width=25, font=font_subtitle, ju
 
 entry_fotolito_final.pack(side="left", padx=(2,20))
 
- 
-
- 
 
 # --- Frame para Status e Reutilizar quadro ---
 
@@ -6100,7 +5304,6 @@ frame_status_reutilizar = tk.Frame(frame_apontamento_direita)
 
 frame_status_reutilizar.grid(row=1, column=0, columnspan=3, sticky="w", padx=5, pady=5)
 
- 
 
 # --- Status ---
 
@@ -6110,7 +5313,6 @@ entry_status_revelacao_final = tk.Entry(frame_status_reutilizar, width=15, font=
 
 entry_status_revelacao_final.pack(side="left", padx=(2,20))
 
- 
 
 # --- Reutilizar Quadro ---
 
@@ -6118,7 +5320,6 @@ tk.Label(frame_status_reutilizar, text="Reutilizar quadro:", font=font_subtitle,
 
 var_reutilizar_quadro = tk.StringVar(value="")  # nenhum selecionado por padrão
 
- 
 
 radio_sim = tk.Radiobutton(frame_status_reutilizar, text="Sim", variable=var_reutilizar_quadro,
 
@@ -6126,7 +5327,6 @@ radio_sim = tk.Radiobutton(frame_status_reutilizar, text="Sim", variable=var_reu
 
 radio_sim.pack(side="left", padx=(5,2))
 
- 
 
 radio_nao = tk.Radiobutton(frame_status_reutilizar, text="Não", variable=var_reutilizar_quadro,
 
@@ -6134,9 +5334,6 @@ radio_nao = tk.Radiobutton(frame_status_reutilizar, text="Não", variable=var_re
 
 radio_nao.pack(side="left", padx=(2,0))
 
- 
-
- 
 
 # --- Caixa de Observação ---
 
@@ -6150,9 +5347,6 @@ entry_observacao = tk.Text(frame_apontamento_direita, width=40, height=4, font=f
 
 entry_observacao.grid(row=2, column=1, columnspan=2, padx=5, pady=(5,2), sticky="w")
 
- 
-
- 
 
 def on_fotolito_final_enter(event=None):
 
@@ -6160,13 +5354,11 @@ def on_fotolito_final_enter(event=None):
 
     valor_registro = entry_fotolito.get().strip()
 
- 
 
     # --- Atualiza status e aparência ---
 
     entry_status_revelacao_final.config(state="normal")  # habilita temporariamente
 
- 
 
     if valor_input == valor_registro:
 
@@ -6192,7 +5384,6 @@ def on_fotolito_final_enter(event=None):
 
         entry_status_revelacao_final.config(state="readonly")
 
- 
 
     # --- Habilita ou desabilita os rádios de Reutilizar Quadro ---
 
@@ -6212,27 +5403,16 @@ def on_fotolito_final_enter(event=None):
 
         radio_nao.config(state="disabled")
 
- 
 
     # --- Pula automaticamente para o campo de Observação ---
 
     entry_observacao.focus_set()
 
- 
-
- 
 
 # Bind para Enter
 
 entry_fotolito_final.bind("<Return>", on_fotolito_final_enter)
 
- 
-
- 
-
- 
-
- 
 
 # --- Funcionário (QR e Nome) ---
 
@@ -6246,13 +5426,11 @@ entry_funcionario_qr_final = tk.Entry(frame_apontamento_direita, width=10, font=
 
 entry_funcionario_qr_final.grid(row=3, column=1, padx=5, pady=(5,2), sticky="w")
 
- 
 
 entry_funcionario_nome_final = tk.Entry(frame_apontamento_direita, width=30, font=font_subtitle, state="readonly")
 
 entry_funcionario_nome_final.grid(row=3, column=2, padx=5, pady=(5,2), sticky="w")
 
- 
 
 def on_matricula_revelacao_final_enter(event=None):
 
@@ -6268,7 +5446,6 @@ def on_matricula_revelacao_final_enter(event=None):
 
         return
 
- 
 
     matricula = extrair_matricula(codigo_lido)
 
@@ -6282,13 +5459,11 @@ def on_matricula_revelacao_final_enter(event=None):
 
         return
 
- 
 
     entry_funcionario_qr_final.delete(0, tk.END)
 
     entry_funcionario_qr_final.insert(0, matricula)
 
- 
 
     nome = buscar_funcionario_por_matricula(matricula)
 
@@ -6310,17 +5485,11 @@ def on_matricula_revelacao_final_enter(event=None):
 
         entry_funcionario_qr_final.focus_set()
 
- 
 
 # Bind para capturar Enter no campo de QR
 
 entry_funcionario_qr_final.bind("<Return>", on_matricula_revelacao_final_enter)
 
- 
-
- 
-
- 
 
 def salvar_revelacao_final():
 
@@ -6338,7 +5507,6 @@ def salvar_revelacao_final():
 
         reutilizar = var_reutilizar_quadro.get()  # Sim ou Não
 
- 
 
         # --- Verifica se o processo anterior (revelação) possui registro ---
 
@@ -6354,7 +5522,6 @@ def salvar_revelacao_final():
 
             return
 
- 
 
         # --- Validação obrigatória de campos ---
 
@@ -6364,7 +5531,6 @@ def salvar_revelacao_final():
 
             return
 
- 
 
         # --- Se status NG, observação e checkbox obrigatório ---
 
@@ -6384,7 +5550,6 @@ def salvar_revelacao_final():
 
                 return
 
- 
 
         # --- Se status OK, checkbox não é obrigatório ---
 
@@ -6392,7 +5557,6 @@ def salvar_revelacao_final():
 
             reutilizar = reutilizar or "N/D"
 
- 
 
         # --- Data atual ---
 
@@ -6400,7 +5564,6 @@ def salvar_revelacao_final():
 
         data = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
- 
 
         # --- Inserção no banco ---
 
@@ -6414,11 +5577,9 @@ def salvar_revelacao_final():
 
         conn.commit()
 
- 
 
         messagebox.showinfo("Sucesso", "Revelação final salva com sucesso!")
 
- 
 
         # --- Limpeza dos campos ---
 
@@ -6456,19 +5617,11 @@ def salvar_revelacao_final():
 
         limpar_id_quadro()
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Erro ao salvar revelação final: {e}")
 
- 
-
- 
-
- 
-
- 
 
 # Botão para salvar no banco
 
@@ -6488,7 +5641,6 @@ botao_salvar_revelacao = tk.Button(
 
 botao_salvar_revelacao.grid(row=4, column=0, columnspan=3, padx=5, pady=(10,5))
 
- 
 
 def verificar_status_revelacao(event=None):
 
@@ -6504,7 +5656,6 @@ def verificar_status_revelacao(event=None):
 
     status = entry_status_revelacao_final.get().strip().upper()
 
-   
 
     if status == "NG":
 
@@ -6520,21 +5671,11 @@ def verificar_status_revelacao(event=None):
 
         radio_nao.config(state="disabled")
 
- 
-
- 
 
 # ou para atualizar imediatamente ao digitar
 
 entry_status_revelacao_final.bind("<KeyRelease>", verificar_status_revelacao)
 
- 
-
- 
-
- 
-
- 
 
 def carregar_revelacao_por_quadro(id_quadro):
 
@@ -6562,11 +5703,9 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         return  # não faz nada se id_quadro vazio
 
- 
 
     id_quadro = id_quadro.strip().upper()
 
- 
 
     try:
 
@@ -6588,7 +5727,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
             row_rev = cursor.fetchone()
 
- 
 
         status_rev = reutilizar_rev = data_rev = None
 
@@ -6596,7 +5734,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
             status_rev, reutilizar_rev, data_rev = row_rev
 
- 
 
         # --- 2. Buscar último registro de revelação ---
 
@@ -6616,7 +5753,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
             row = cursor.fetchone()
 
- 
 
         if not row:
 
@@ -6624,11 +5760,9 @@ def carregar_revelacao_por_quadro(id_quadro):
 
             return  # não faz nada se não houver registro
 
- 
 
         qr_fotolito, reg_func, status, observacao, data_reg = row
 
- 
 
         # --- 3. Bloqueio se revelacao_final = NG + Sim ---
 
@@ -6648,7 +5782,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
                 print("DEBUG: Revelação refeita após NG + Sim → carregando normalmente.")
 
- 
 
         # --- 4. Preencher campos essenciais ---
 
@@ -6662,7 +5795,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_fotolito.config(state="readonly")
 
- 
 
         # Código do funcionário
 
@@ -6674,7 +5806,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_func_codigo_revelacao.config(state="disabled")
 
- 
 
         # Nome do funcionário
 
@@ -6688,7 +5819,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_func_nome_revelacao.config(state="readonly")
 
- 
 
         # Data
 
@@ -6700,7 +5830,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_data_revelacao.config(state="readonly")
 
- 
 
         # Status
 
@@ -6712,7 +5841,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_status_revelacao.config(state="readonly")
 
- 
 
         # Observação
 
@@ -6724,7 +5852,6 @@ def carregar_revelacao_por_quadro(id_quadro):
 
         entry_motivo_revelacao.config(state="disabled")
 
- 
 
         # --- 5. Preencher campos complementares via função existente ---
 
@@ -6732,19 +5859,14 @@ def carregar_revelacao_por_quadro(id_quadro):
 
             on_fotolito_enter()
 
- 
 
         print("DEBUG: Dados da revelação carregados com sucesso.")
 
- 
 
     except Exception as e:
 
         messagebox.showerror("Erro", f"Falha ao carregar dados da revelação:\n{e}")
 
- 
-
- 
 
 combo_origem.grid_position = {
 
@@ -6760,85 +5882,45 @@ combo_origem.grid_position = {
 
 }
 
- 
-
- 
-
- 
-
- 
-
- 
 
 # Frame final dos botões
 
- 
-
- 
-
- 
-
- 
 
 button_frame_final = tk.Frame(content_frame)
 
 button_frame_final.grid(row=18, column=0, columnspan=7, pady=(20, 10))
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 btn_sair_final = tk.Button(button_frame_final, text="Sair", width=15, command=root.quit)
 
 btn_sair_final.pack(side="left", padx=10)
 
- 
-
- 
-
- 
-
- 
 
 entries_emulsao_to_bind = [
 
     entry_emulsao_qr,
 
-    entry_emulsao_qr_readonly, 
+    entry_emulsao_qr_readonly,
 
-    
 
-   
+    entry_espessura_1,
 
-    entry_espessura_1,         
+    entry_espessura_2,
 
-    entry_espessura_2,         
-
-    entry_espessura_3,         
+    entry_espessura_3,
 
     entry_func_codigo_emulsao,
 
-    entry_func_nome_emulsao,   
+    entry_func_nome_emulsao,
 
-    entry_data_emulsao,        
+    entry_data_emulsao,
 
     entry_status_emulsao,
 
-    entry_motivo_emulsao,      
+    entry_motivo_emulsao,
 
 ]
 
- 
-
- 
 
 entries_emulsao_editaveis = [
 
@@ -6854,11 +5936,6 @@ entries_emulsao_editaveis = [
 
 ]
 
- 
-
- 
-
- 
 
 def focus_next_widget(event):
 
@@ -6866,7 +5943,6 @@ def focus_next_widget(event):
 
     return "break"
 
- 
 
 entries_to_bind = [
 
@@ -6896,7 +5972,6 @@ entries_to_bind = [
 
 ]
 
- 
 
 for entry_x, entry_y in entries_tensao:
 
@@ -6904,9 +5979,6 @@ for entry_x, entry_y in entries_tensao:
 
     entries_to_bind.append(entry_y)
 
- 
-
- 
 
 entries_to_bind += [
 
@@ -6920,7 +5992,7 @@ entries_to_bind += [
 
     entry_parametros_3d,
 
-    *espessura_3d_entries, 
+    *espessura_3d_entries,
 
     entry_func_codigo_pos,
 
@@ -6930,9 +6002,6 @@ entries_to_bind += [
 
 ]
 
- 
-
- 
 
 for entry_x, entry_y in entries_tensao_3d:
 
@@ -6940,13 +6009,11 @@ for entry_x, entry_y in entries_tensao_3d:
 
     entries_to_bind.append(entry_y)
 
- 
 
 entries_to_bind.append(entry_status)
 
 entries_to_bind.append(entry_status_pos)
 
- 
 
 for entry in entries_to_bind:
 
@@ -6954,7 +6021,6 @@ for entry in entries_to_bind:
 
         entry.bind("<Return>", focus_next_widget)
 
-       
 
 def atualizar_cor_status(entry):
 
@@ -6968,27 +6034,21 @@ def atualizar_cor_status(entry):
 
         entry.config(bg="white")
 
- 
 
 entry_status.bind("<KeyRelease>", lambda e: atualizar_cor_status(entry_status))
 
 entry_status_pos.bind("<KeyRelease>", lambda e: atualizar_cor_status(entry_status_pos))
 
- 
 
 def on_enter_emulsao(event):
 
     widget = event.widget
 
-   
-
-    
 
     if widget == entry_espessura_2:
 
         atualizar_verificacao()
 
-   
 
     try:
 
@@ -7002,23 +6062,16 @@ def on_enter_emulsao(event):
 
         pass
 
- 
 
     if isinstance(widget, tk.Entry):
 
         return "break"
 
- 
-
- 
 
 for e in entries_emulsao_editaveis:
 
     e.bind("<Return>", on_enter_emulsao)
 
- 
-
- 
 
 def on_ctrl_enter_motivo(event):
 
@@ -7026,11 +6079,9 @@ def on_ctrl_enter_motivo(event):
 
     return "break"
 
- 
 
 entry_motivo_emulsao.bind("<Control-Return>", on_ctrl_enter_motivo)
 
- 
 
 def buscar_emulsao_por_qr(qr):
 
@@ -7046,7 +6097,6 @@ def buscar_emulsao_por_qr(qr):
 
         return ""
 
- 
 
     # Extrair número de referência dos primeiros 6 dígitos
 
@@ -7060,7 +6110,6 @@ def buscar_emulsao_por_qr(qr):
 
         return ""
 
- 
 
     # Verificar se os últimos 3 caracteres são 'MPI'
 
@@ -7068,7 +6117,6 @@ def buscar_emulsao_por_qr(qr):
 
         return ""
 
- 
 
     # Buscar no banco
 
@@ -7088,7 +6136,6 @@ def buscar_emulsao_por_qr(qr):
 
         cursor.close()
 
- 
 
         # Só retorna se Tipo for exatamente "Emulsão"
 
@@ -7106,7 +6153,6 @@ def buscar_emulsao_por_qr(qr):
 
         return ""
 
- 
 
 def validar_emulsao_qr(event):
 
@@ -7122,11 +6168,9 @@ def validar_emulsao_qr(event):
 
     entry_emulsao_qr_readonly.config(state="readonly")
 
- 
 
 entry_emulsao_qr.bind("<FocusOut>", validar_emulsao_qr)
 
-       
 
 if db_online:
 
@@ -7136,11 +6180,6 @@ if db_online:
 
     carregar_parametros()
 
- 
-
- 
-
- 
 
 def carregar_espessura_pos_esticagem(id_quadro):
 
@@ -7154,7 +6193,6 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
     print("DEBUG: Função chamada com id_quadro =", id_quadro)  # 1. Verifica chamada
 
- 
 
     if not id_quadro:
 
@@ -7162,13 +6200,11 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
         return
 
- 
 
     try:
 
         cursor = conn.cursor()
 
- 
 
         # Query com CAST para evitar problemas de tipo
 
@@ -7184,13 +6220,11 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
         """, (id_quadro,))
 
- 
 
         row = cursor.fetchone()
 
         print("DEBUG: row retornado do banco:", row)  # 2. Verifica retorno do banco
 
- 
 
         if row:
 
@@ -7202,9 +6236,6 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
             print("DEBUG: Nenhum registro encontrado para esse id_quadro")
 
-           
-
- 
 
         # Atualiza Entry
 
@@ -7218,13 +6249,11 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
         entry_espessura_1.config(state="readonly")
 
- 
 
         cursor.close()
 
         print("DEBUG: Entry atualizado com sucesso")
 
- 
 
     except Exception as e:
 
@@ -7238,7 +6267,6 @@ def carregar_espessura_pos_esticagem(id_quadro):
 
         )
 
- 
 
 def verificar_reutilizacao(id_quadro):
 
@@ -7270,7 +6298,6 @@ def verificar_reutilizacao(id_quadro):
 
             row = cursor.fetchone()
 
- 
 
         if row and row[0] and row[0].strip().lower() == "não":
 
@@ -7280,11 +6307,9 @@ def verificar_reutilizacao(id_quadro):
 
             return False  # bloqueia
 
- 
 
         return True  # permitido
 
- 
 
     except Exception as e:
 
@@ -7292,9 +6317,6 @@ def verificar_reutilizacao(id_quadro):
 
         return False
 
- 
-
- 
 
 def ao_perder_foco(event=None):
 
@@ -7304,7 +6326,6 @@ def ao_perder_foco(event=None):
 
         return
 
- 
 
     # --- Verifica primeiro se o quadro pode ser reutilizado ---
 
@@ -7312,7 +6333,6 @@ def ao_perder_foco(event=None):
 
         return  # sai sem carregar nada
 
- 
 
     # --- Só depois valida e segue com os carregamentos ---
 
@@ -7324,15 +6344,6 @@ def ao_perder_foco(event=None):
 
     carregar_revelacao_por_quadro(id_quadro_val)
 
- 
-
- 
-
-     
-
- 
-
- 
 
 # Bind correto usando apenas a função existente
 
@@ -7340,14 +6351,7 @@ entry_id_quadro.bind("<FocusOut>", ao_perder_foco)
 
 entry_id_quadro.focus_set()
 
- 
-
- 
-
- 
-
- 
 
 root.mainloop()
 
- 
+
